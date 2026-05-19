@@ -1,0 +1,1787 @@
+{
+  "info": {
+    "_postman_id": "3e14f2d6-f83d-44f6-a908-b020c87efdba",
+    "name": "Fadex",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47585629",
+    "_collection_link": "https://go.postman.co/collection/47585629-3e14f2d6-f83d-44f6-a908-b020c87efdba?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Usuario",
+      "item": [
+        {
+          "name": "listarUsuarios",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/usuarios",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "listarUsuariosID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/usuarios",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "usuarios"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "POST Auth",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n   \"username\": \"admin1\",\r\n   \"password\": \"admin123\"\r\n }\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/auth/login",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crearBarbero",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"Jorvix123\",\r\n  \"password\": \"Jorvix123\",\r\n  \"idRol\": 2,\r\n  \"nombre\": \"Jorge\",\r\n  \"apellido\": \"Chavez\",\r\n  \"telefono\": \"956789123\",\r\n  \"email\": \"crz@gmail.com\",\r\n  \"experiencia\": 4,\r\n  \"sueldo\": 1800.00,\r\n  \"comision\": 9.50,\r\n  \"descripcion\": \"Especialista en cortes modernos\",\r\n  \"fotoUrl\": null\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/usuarios/barbero",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "usuarios",
+                "barbero"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crearCliente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"Pia123\",\r\n  \"password\": \"Pia123\",\r\n  \"idRol\": 3,\r\n  \"nombre\": \"Pia\",\r\n  \"apellido\": \"García\",\r\n  \"telefono\": \"912345111\",\r\n  \"email\": \"Pia@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/usuarios/cliente",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "usuarios",
+                "cliente"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Clientes",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"personaId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/clientes",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Clientes",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/clientes/eliminar/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "clientes",
+                "eliminar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Barberos",
+      "item": [
+        {
+          "name": "listarBarberos",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}}/barberos?page=0&size=5",
+              "host": [
+                "{{api}}}"
+              ],
+              "path": [
+                "barberos"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Barbero",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"personaId\": 1,\r\n  \"experiencia\": 3,\r\n  \"estado\": \"ACTIVO\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}}/barberos",
+              "host": [
+                "{{api}}}"
+              ],
+              "path": [
+                "barberos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Barberos",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"experiencia\":7\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/barberos/actualizar/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "barberos",
+                "actualizar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Barbero",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/barberos/eliminar/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "barberos",
+                "eliminar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscarBarbero",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"personaId\": 1,\r\n  \"experiencia\": 3,\r\n  \"estado\": \"ACTIVO\"\r\n}"
+            },
+            "url": {
+              "raw": "{{api}}/barberos/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "barberos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Personas",
+      "item": [
+        {
+          "name": "listarPersona",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/personas",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "personas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Persona",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nombre\":\"Hian Adriano\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/personas/actualizar/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "personas",
+                "actualizar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Persona",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"personaId\": 1\r\n}"
+            },
+            "url": {
+              "raw": "{{api}}/personas",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "personas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Persona",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "1234",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/personas/eliminar/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "personas",
+                "eliminar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscarPersona",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/personas/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "personas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Productos",
+      "item": [
+        {
+          "name": "listarProductos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/productos",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "productos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "listarProductosID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/productos/6",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "productos",
+                    "6"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n    \"success\": true,\r\n    \"message\": \"Producto obtenido correctamente\",\r\n    \"data\": {\r\n        \"id\": 6,\r\n        \"nombre\": \"Cera moldeadora\",\r\n        \"descripcion\": \"Acabado natural con fijación media\",\r\n        \"precio\": 45.00,\r\n        \"stock\": 40,\r\n        \"estado\": true,\r\n        \"publicado\": true,\r\n        \"idCategoria\": 1,\r\n        \"nombreCategoria\": \"Shampoo\",\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/2194f385-3f71-4e22-8206-9429606a79b0.jpg\"\r\n        ]\r\n    },\r\n    \"timestamp\": \"2026-05-08T15:53:33.666555500\"\r\n}"
+            },
+            {
+              "name": "listarProductosFiltros",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/productos?nombre=cera&estado=true&estado=true&precioMin=10&precioMax=50&size=10&page=0&sort=precio,asc",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ],
+                  "query": [
+                    {
+                      "key": "nombre",
+                      "value": "cera"
+                    },
+                    {
+                      "key": "estado",
+                      "value": "true"
+                    },
+                    {
+                      "key": "estado",
+                      "value": "true"
+                    },
+                    {
+                      "key": "precioMin",
+                      "value": "10"
+                    },
+                    {
+                      "key": "precioMax",
+                      "value": "50"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "precio,asc"
+                    }
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n    \"success\": true,\r\n    \"message\": \"Productos  obtenidos correctamente\",\r\n    \"data\": {\r\n        \"content\": [\r\n            {\r\n                \"id\": 5,\r\n                \"nombre\": \"Shampoo Hidratante Profesional\",\r\n                \"descripcion\": \"Shampoo diseñado para hidratar profundamente el cabello seco, aportando brillo y suavidad desde la primera aplicación.\",\r\n                \"precio\": 29.90,\r\n                \"stock\": 50,\r\n                \"estado\": true,\r\n                \"publicado\": true,\r\n                \"idCategoria\": 1,\r\n                \"nombreCategoria\": \"Shampoo\",\r\n                \"urlsMultimedia\": []\r\n            },\r\n            {\r\n                \"id\": 8,\r\n                \"nombre\": \"Cera moldeadora\",\r\n                \"descripcion\": \"Acabado natural con fijación media\",\r\n                \"precio\": 30.00,\r\n                \"stock\": 15,\r\n                \"estado\": true,\r\n                \"publicado\": true,\r\n                \"idCategoria\": 1,\r\n                \"nombreCategoria\": \"Shampoo\",\r\n                \"urlsMultimedia\": [\r\n                    \"productos/2026/05/bc8e3e99-22e4-49d2-8f53-07bc3926e54b.jpg\"\r\n                ]\r\n            },\r\n            {\r\n                \"id\": 6,\r\n                \"nombre\": \"Cera moldeadora\",\r\n                \"descripcion\": \"Acabado natural con fijación media\",\r\n                \"precio\": 45.00,\r\n                \"stock\": 40,\r\n                \"estado\": true,\r\n                \"publicado\": true,\r\n                \"idCategoria\": 1,\r\n                \"nombreCategoria\": \"Shampoo\",\r\n                \"urlsMultimedia\": [\r\n                    \"productos/2026/05/2194f385-3f71-4e22-8206-9429606a79b0.jpg\"\r\n                ]\r\n            },\r\n            {\r\n                \"id\": 10,\r\n                \"nombre\": \"Cera para cabello\",\r\n                \"descripcion\": \"Cera profesional de fijación fuerte\",\r\n                \"precio\": 25.50,\r\n                \"stock\": 10,\r\n                \"estado\": false,\r\n                \"publicado\": false,\r\n                \"idCategoria\": 1,\r\n                \"nombreCategoria\": \"Shampoo\",\r\n                \"urlsMultimedia\": [\r\n                    \"productos/2026/05/599bc53a-2289-40d9-9b69-0ca75fa5899c.webp\",\r\n                    \"productos/2026/05/c84ca4f7-f0a5-4c33-b003-d3b836c37ed5.webp\"\r\n                ]\r\n            }\r\n        ],\r\n        \"pageNumber\": 0,\r\n        \"pageSize\": 10,\r\n        \"totalElements\": 4,\r\n        \"totalPages\": 1,\r\n        \"last\": true\r\n    },\r\n    \"timestamp\": \"2026-05-08T15:52:47.445788200\"\r\n}"
+            },
+            {
+              "name": "listarProductos",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/productos",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n    \"success\": true,\r\n    \"message\": \"Productos  obtenidos correctamente\",\r\n    \"data\": {\r\n        \"content\": [\r\n            {\r\n                \"id\": 5,\r\n                \"nombre\": \"Shampoo Hidratante Profesional\",\r\n                \"descripcion\": \"Shampoo diseñado para hidratar profundamente el cabello seco, aportando brillo y suavidad desde la primera aplicación.\",\r\n                \"precio\": 29.90,\r\n                \"stock\": 50,\r\n                \"estado\": true,\r\n                \"publicado\": true,\r\n                \"idCategoria\": 1,\r\n                \"nombreCategoria\": \"Shampoo\",\r\n                \"urlsMultimedia\": []\r\n            },\r\n            {\r\n                \"id\": 8,\r\n                \"nombre\": \"Cera moldeadora\",\r\n                \"descripcion\": \"Acabado natural con fijación media\",\r\n                \"precio\": 30.00,\r\n                \"stock\": 15,\r\n                \"estado\": true,\r\n                \"publicado\": true,\r\n                \"idCategoria\": 1,\r\n                \"nombreCategoria\": \"Shampoo\",\r\n                \"urlsMultimedia\": [\r\n                    \"productos/2026/05/bc8e3e99-22e4-49d2-8f53-07bc3926e54b.jpg\"\r\n                ]\r\n            },\r\n            {\r\n                \"id\": 6,\r\n                \"nombre\": \"Cera moldeadora\",\r\n                \"descripcion\": \"Acabado natural con fijación media\",\r\n                \"precio\": 45.00,\r\n                \"stock\": 40,\r\n                \"estado\": true,\r\n                \"publicado\": true,\r\n                \"idCategoria\": 1,\r\n                \"nombreCategoria\": \"Shampoo\",\r\n                \"urlsMultimedia\": [\r\n                    \"productos/2026/05/2194f385-3f71-4e22-8206-9429606a79b0.jpg\"\r\n                ]\r\n            },\r\n            {\r\n                \"id\": 10,\r\n                \"nombre\": \"Cera para cabello\",\r\n                \"descripcion\": \"Cera profesional de fijación fuerte\",\r\n                \"precio\": 25.50,\r\n                \"stock\": 10,\r\n                \"estado\": false,\r\n                \"publicado\": false,\r\n                \"idCategoria\": 1,\r\n                \"nombreCategoria\": \"Shampoo\",\r\n                \"urlsMultimedia\": [\r\n                    \"productos/2026/05/599bc53a-2289-40d9-9b69-0ca75fa5899c.webp\",\r\n                    \"productos/2026/05/c84ca4f7-f0a5-4c33-b003-d3b836c37ed5.webp\"\r\n                ]\r\n            }\r\n        ],\r\n        \"pageNumber\": 0,\r\n        \"pageSize\": 10,\r\n        \"totalElements\": 4,\r\n        \"totalPages\": 1,\r\n        \"last\": true\r\n    },\r\n    \"timestamp\": \"2026-05-08T15:54:04.271243300\"\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "crearProducto",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "archivos",
+                  "type": "file",
+                  "uuid": "0716454a-4a03-4724-af40-b9ee99c32f82",
+                  "src": [
+                    "/C:/Users/David/Downloads/cera_moldeadora.webp",
+                    "/C:/Users/David/Downloads/gel.webp"
+                  ]
+                },
+                {
+                  "key": "producto",
+                  "type": "text",
+                  "uuid": "fdb65589-1b26-41cf-b08d-0cb12f9b987f",
+                  "value": "{\n  \"nombre\": \"Cera para cabello\",\n  \"descripcion\": \"Cera profesional de fijación fuerte\",\n  \"precio\": 25.50,\n  \"stock\": 10,\n  \"estado\": true,\n  \"publicado\": true,\n  \"idCategoria\": 1\n}",
+                  "contentType": "application/json"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/productos",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "productos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "actualizarProducto",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "archivos",
+                  "type": "file",
+                  "uuid": "76a53870-0393-4a65-a744-937d5b49d092",
+                  "contentType": "",
+                  "src": "/C:/Users/David/Downloads/cera_moldeadora.webp"
+                },
+                {
+                  "key": "producto",
+                  "value": "{\n  \"nombre\": \"Cera para cabello\",\n  \"descripcion\": \"Cera profesional de fijación fuerte\",\n  \"precio\": 45.50,\n  \"stock\": 29,\n  \"estado\": true,\n  \"publicado\": true,\n  \"idCategoria\": 2\n}",
+                  "type": "text",
+                  "uuid": "7693a527-6e71-4e29-be64-bf8afaeb90be",
+                  "contentType": "application/json"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/productos/11",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "productos",
+                "11"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminarProducto",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/productos/11",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "productos",
+                "11"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "activarProducto",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/productos/11/estado?estado=false",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "productos",
+                "11",
+                "estado"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "activarPublicacion",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/productos/11/publicacion?publicado=false",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "productos",
+                "11",
+                "publicacion"
+              ],
+              "query": [
+                {
+                  "key": "publicado",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reserva",
+      "item": [
+        {
+          "name": "listarBarberos",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/barbero/citas/hoy",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "barbero",
+                "citas",
+                "hoy"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reserva de citas para barberos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"clienteId\": 1,\r\n    \"servicioId\": 1,\r\n    \"barberoId\": 1,\r\n    \"fecha\": \"2026-05-16\",\r\n    \"horaInicio\": \"11:00:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/reservas",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "reservas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "activarEstado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"estado\": \"FINALIZADA\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/barbero/citas/1/estado",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "barbero",
+                "citas",
+                "1",
+                "estado"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categoria",
+      "item": [
+        {
+          "name": "listarCategorias",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/categorias",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "categorias"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "listarCategorias",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/categorias",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n    \"success\": true,\r\n    \"message\": \"Categorías recuperadas con éxito\",\r\n    \"data\": [\r\n        {\r\n            \"id\": 2,\r\n            \"nombre\": \"Corte de cabello\",\r\n            \"descripcion\": null,\r\n            \"estado\": true,\r\n            \"padreId\": null,\r\n            \"padreNombre\": null,\r\n            \"subcategorias\": [\r\n                {\r\n                    \"id\": 5,\r\n                    \"nombre\": \"Cortes modernos\",\r\n                    \"descripcion\": \"Estilos actuales\",\r\n                    \"estado\": true,\r\n                    \"padreId\": 2,\r\n                    \"padreNombre\": \"Corte de cabello\",\r\n                    \"subcategorias\": []\r\n                },\r\n                {\r\n                    \"id\": 6,\r\n                    \"nombre\": \"Cortes militares\",\r\n                    \"descripcion\": \"Estilos actuales\",\r\n                    \"estado\": true,\r\n                    \"padreId\": 2,\r\n                    \"padreNombre\": \"Corte de cabello\",\r\n                    \"subcategorias\": []\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"nombre\": \"Corte de barba\",\r\n            \"descripcion\": null,\r\n            \"estado\": true,\r\n            \"padreId\": null,\r\n            \"padreNombre\": null,\r\n            \"subcategorias\": []\r\n        },\r\n        {\r\n            \"id\": 4,\r\n            \"nombre\": \"Cortes modernos\",\r\n            \"descripcion\": \"Estilos actuales\",\r\n            \"estado\": true,\r\n            \"padreId\": null,\r\n            \"padreNombre\": null,\r\n            \"subcategorias\": []\r\n        }\r\n    ],\r\n    \"timestamp\": \"2026-04-19T14:53:52.331057300\"\r\n}"
+            },
+            {
+              "name": "listarCategoriasId",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/categorias/1",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    "1"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\r\n    \"success\": true,\r\n    \"message\": \"Categoría encontrada\",\r\n    \"data\": {\r\n        \"id\": 2,\r\n        \"nombre\": \"Corte de cabello\",\r\n        \"descripcion\": null,\r\n        \"estado\": true,\r\n        \"padreId\": null,\r\n        \"padreNombre\": null,\r\n        \"subcategorias\": [\r\n            {\r\n                \"id\": 5,\r\n                \"nombre\": \"Cortes modernos\",\r\n                \"descripcion\": \"Estilos actuales\",\r\n                \"estado\": true,\r\n                \"padreId\": 2,\r\n                \"padreNombre\": \"Corte de cabello\",\r\n                \"subcategorias\": []\r\n            },\r\n            {\r\n                \"id\": 6,\r\n                \"nombre\": \"Cortes militares\",\r\n                \"descripcion\": \"Estilos actuales\",\r\n                \"estado\": true,\r\n                \"padreId\": 2,\r\n                \"padreNombre\": \"Corte de cabello\",\r\n                \"subcategorias\": []\r\n            }\r\n        ]\r\n    },\r\n    \"timestamp\": \"2026-04-19T14:53:03.597160600\"\r\n}"
+            },
+            {
+              "name": "listarCategoriasFiltros",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/categorias",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ],
+                  "query": [
+                    {
+                      "key": "nombre",
+                      "value": "cortes",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "estado",
+                      "value": "true",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "padreId",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "tipo",
+                      "value": "PRODUCTO",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "crearCategoria",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nombre\": \"Shampoo\",\r\n  \"descripcion\": \"Estilos actuales de corte\",\r\n  \"estado\": true,\r\n  \"tipo\":\"PRODUCTO\",\r\n  \"padreId\": null\r\n}\r\n\r\n\r\n// {\r\n//   \"nombre\": \"Cortes\",\r\n//   \"descripcion\": \"Estilos actuales de corte\",\r\n//   \"estado\": true,\r\n//   \"tipo\":\"SERVICIO\",\r\n//   \"padreId\": null\r\n// }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/categorias",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "categorias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "actualizarCategorias",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nombre\": \"Afeitados\",\r\n  \"descripcion\": \"Estilos actuales de corte\",\r\n  \"estado\": true,\r\n  \"tipo\":\"SERVICIO\",\r\n  \"padreId\": 2\r\n}\r\n\r\n// {\r\n//   \"nombre\": \"Cortes\",\r\n//   \"descripcion\": \"Estilos actuales de corte\",\r\n//   \"estado\": true,\r\n//   \"tipo\":\"SERVICIO\",\r\n//   \"padreId\": 4\r\n// }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/categorias/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "categorias",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "activarEstado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/categorias/1/estado?estado=false",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "categorias",
+                "1",
+                "estado"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminarCategorias",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/categorias/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "categorias",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Servicio",
+      "item": [
+        {
+          "name": "Crear Servicio",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "servicio",
+                  "value": "{\n  \"nombre\": \"Corte Mullet Moderno33\",\n  \"precio\": 40.00,\n  \"categoriaId\": 4,\n  \"duracion\": 60\n}",
+                  "type": "text",
+                  "uuid": "807d3c6f-ba02-48c0-97c0-1ce426e137ca",
+                  "contentType": "application/json"
+                },
+                {
+                  "key": "archivos",
+                  "type": "file",
+                  "uuid": "40782075-6ee2-4fb3-b0fd-171a53ce9f48",
+                  "src": "/C:/Users/David/Downloads/corte mulllet.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/servicio",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "servicio"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Servicio",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/servicio",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "servicio"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listar ServicioiD",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/servicio/2",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "servicio",
+                    "2"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": "{\r\n    \"servicioId\": 4,\r\n    \"nombre\": \"Corte Fade VIP -recontraoficial3\",\r\n    \"precio\": 40.00,\r\n    \"categoriaId\": 4,\r\n    \"categoriaNombre\": \"Cortes\",\r\n    \"duracion\": 50,\r\n    \"urlsMultimedia\": [\r\n        \"productos/2026/05/c306b947-79ce-4eec-8f91-29a56c7df5d7.jpg\"\r\n    ]\r\n}"
+            },
+            {
+              "name": "Listar Servicio",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/servicio",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "servicio"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "[\r\n    {\r\n        \"servicioId\": 3,\r\n        \"nombre\": \"corte cabello\",\r\n        \"precio\": 18.50,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 20,\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/acb4fb7a-056f-4b94-91da-e3485390404a.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 5,\r\n        \"nombre\": \"arreglo de barba\",\r\n        \"precio\": 18.50,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 20,\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/39999507-c82f-4dee-b78e-b22b00697fc8.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 6,\r\n        \"nombre\": \"arreglo de barba\",\r\n        \"precio\": 18.50,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 20,\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/4834c68e-a3ca-4656-998f-884c2681808b.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 7,\r\n        \"nombre\": \"Corte Fade Premium\",\r\n        \"precio\": 35.00,\r\n        \"categoriaId\": 1,\r\n        \"categoriaNombre\": \"Afeitados\",\r\n        \"duracion\": 45,\r\n        \"urlsMultimedia\": []\r\n    },\r\n    {\r\n        \"servicioId\": 1,\r\n        \"nombre\": \"Corte Fade VIP\",\r\n        \"precio\": 40.00,\r\n        \"categoriaId\": 1,\r\n        \"categoriaNombre\": \"Afeitados\",\r\n        \"duracion\": 50,\r\n        \"urlsMultimedia\": []\r\n    },\r\n    {\r\n        \"servicioId\": 8,\r\n        \"nombre\": \"Corte Fade\",\r\n        \"precio\": 35.00,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 45,\r\n        \"urlsMultimedia\": [\r\n            \"servicios/2026/05/02704b43-0b9e-447f-b6b7-7a5df089dfed.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 9,\r\n        \"nombre\": \"Corte Mullet Moderno\",\r\n        \"precio\": 40.00,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 60,\r\n        \"urlsMultimedia\": [\r\n            \"servicios/2026/05/8e2e0ace-ee5f-4428-a48e-536b52558307.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 10,\r\n        \"nombre\": \"Corte Mullet Moderno3\",\r\n        \"precio\": 40.00,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 60,\r\n        \"urlsMultimedia\": [\r\n            \"servicios/2026/05/ecc831ac-a430-4adc-bbd5-fe9098aae3c1.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 4,\r\n        \"nombre\": \"Corte Fade VIP -recontraoficial3\",\r\n        \"precio\": 40.00,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 50,\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/c306b947-79ce-4eec-8f91-29a56c7df5d7.jpg\"\r\n        ]\r\n    }\r\n]"
+            }
+          ]
+        },
+        {
+          "name": "Actualizar Servicio",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "servicio",
+                  "value": "{\n    \"nombre\": \"Corte Fade VIP -recontraoficial3\",\n    \"precio\": 40.00,\n    \"categoriaId\": 4,\n    \"duracion\": 50\n}",
+                  "type": "text",
+                  "uuid": "c8985521-b79a-466a-9b39-95d98c9f7c36",
+                  "contentType": "application/json"
+                },
+                {
+                  "key": "archivos",
+                  "type": "file",
+                  "uuid": "66590640-29f4-46b8-bdf2-257dfb2171ab",
+                  "src": "/C:/Users/David/Downloads/corte mulllet.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/servicio/2",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "servicio",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Servicio",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/servicio/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "servicio",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ventas",
+      "item": [
+        {
+          "name": "Listar Ventas",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3Nzg5OTE1MzAsImV4cCI6MTc3ODk5MjQzMH0._Tmf7Q8sQagOv4Q2ZvDYRZyvqH3Z-_72k5bwem8zgZUUg2Y1lTqgHZpAGisQikm1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/ventas",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ventas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ventas ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3Nzg5OTE1MzAsImV4cCI6MTc3ODk5MjQzMH0._Tmf7Q8sQagOv4Q2ZvDYRZyvqH3Z-_72k5bwem8zgZUUg2Y1lTqgHZpAGisQikm1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/ventas/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ventas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Ventas",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3Nzg5OTE1MzAsImV4cCI6MTc3ODk5MjQzMH0._Tmf7Q8sQagOv4Q2ZvDYRZyvqH3Z-_72k5bwem8zgZUUg2Y1lTqgHZpAGisQikm1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"clienteId\": 1,\r\n    \"barberoId\": 2,\r\n    \"fecha\": \"2026-04-18T20:30:00\",\r\n    \"detalles\": [\r\n        {\r\n            \"productoId\": 5,\r\n            \"cantidad\": 2,\r\n            \"precioUnitario\": 12.50\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/ventas",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ventas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Ventas",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3Nzg5OTE5ODYsImV4cCI6MTc3ODk5Mjg4Nn0.kxtgf6jl5OqAl7ZNcLW6DMHB-oQyK8MhAXsNLL-uzs4max0Pkp_tZZrRGqzGlwas",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/ventas/5",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ventas",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detalle Ventas",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3Nzg5OTE5ODYsImV4cCI6MTc3ODk5Mjg4Nn0.kxtgf6jl5OqAl7ZNcLW6DMHB-oQyK8MhAXsNLL-uzs4max0Pkp_tZZrRGqzGlwas",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/ventas/1/detalles",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ventas",
+                "1",
+                "detalles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Historial Ventas",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3Nzg5OTE5ODYsImV4cCI6MTc3ODk5Mjg4Nn0.kxtgf6jl5OqAl7ZNcLW6DMHB-oQyK8MhAXsNLL-uzs4max0Pkp_tZZrRGqzGlwas",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/ventas/1/historial",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ventas",
+                "1",
+                "historial"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Ventas",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3Nzg5OTE5ODYsImV4cCI6MTc3ODk5Mjg4Nn0.kxtgf6jl5OqAl7ZNcLW6DMHB-oQyK8MhAXsNLL-uzs4max0Pkp_tZZrRGqzGlwas",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"clienteId\": 1,\r\n    \"barberoId\": 1,\r\n    \"fecha\": \"2026-05-16T22:00:00\",\r\n    \"detalles\": [\r\n        {\r\n            \"productoId\": 1,\r\n            \"cantidad\": 2,\r\n            \"precioUnitario\": 15.00\r\n        },\r\n        {\r\n            \"productoId\": 2,\r\n            \"cantidad\": 1,\r\n            \"precioUnitario\": 25.00\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/ventas/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ventas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "api",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
