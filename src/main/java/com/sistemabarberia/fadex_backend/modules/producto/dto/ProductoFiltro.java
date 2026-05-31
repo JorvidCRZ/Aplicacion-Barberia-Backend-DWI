@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 @Data
 public class ProductoFiltro {
 
+    @Positive(message = "id debe ser mayor a 0")
+    private Long id;
+
     private String nombre;
 
     @Positive(message = "idCategoria debe ser mayor a 0")

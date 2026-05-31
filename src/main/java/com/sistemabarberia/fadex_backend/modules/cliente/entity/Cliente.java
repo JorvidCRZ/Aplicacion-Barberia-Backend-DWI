@@ -28,7 +28,8 @@ public class Cliente {
     @Column(name = "fecha_registro")
     private LocalDate fechaRegistro;
 
-
+    @Column(name = "activo")
+    private boolean activo;
 
     @PrePersist   //Si Fecha Registro es null lo pondra automaticamente
     public void prePersist() {

@@ -1,5 +1,6 @@
 package com.sistemabarberia.fadex_backend.modules.reserva.dto.Response;
 
+import com.sistemabarberia.fadex_backend.modules.reserva.entity.EstadoReserva;
 import com.sistemabarberia.fadex_backend.modules.reserva.entity.TipoReserva;
 
 import java.math.BigDecimal;
@@ -15,5 +16,6 @@ public record ReservaDTO(
         LocalTime horaInicio,
         LocalTime horaFin,
         TipoReserva tipoReserva,
-        BigDecimal total
+        BigDecimal total,
+         EstadoReserva estadoReserva
 ) {}

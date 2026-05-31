@@ -18,13 +18,15 @@ public interface VentaMapper {
 
     @Mapping(target = "ventaId", ignore = true)
     @Mapping(target = "cliente", expression = "java(mapCliente(dto.getClienteId()))")
-    @Mapping(target = "barbero", expression = "java(mapBarbero(dto.getBarberoId()))")
+//    @Mapping(target = "barbero", expression = "java(mapBarbero(dto.getBarberoId()))")
+    @Mapping(source = "tipoComprobante", target = "tipoComprobante")
     Venta toEntity(VentaRequestDTO dto);
 
     @Mapping(source = "cliente.clienteId", target = "clienteId")
     @Mapping(source = "cliente.persona.nombre", target = "clienteNombre")
-    @Mapping(source = "barbero.barberoId", target = "barberoId")
-    @Mapping(source = "barbero.persona.nombre", target = "barberoNombre")
+//    @Mapping(source = "barbero.barberoId", target = "barberoId")
+//    @Mapping(source = "barbero.persona.nombre", target = "barberoNombre")
+    @Mapping(source = "tipoComprobante", target = "tipoComprobante")
     @Mapping(target = "detalles", expression = "java(mapDetalles(venta.getDetalles()))")
     VentaResponseDTO toResponse(Venta venta);
 
@@ -37,12 +39,12 @@ public interface VentaMapper {
         return cliente;
     }
 
-    default Barbero mapBarbero(Integer id) {
-        if (id == null) return null;
-        Barbero barbero = new Barbero();
-        barbero.setBarberoId(id);
-        return barbero;
-    }
+//    default Barbero mapBarbero(Integer id) {
+//        if (id == null) return null;
+//        Barbero barbero = new Barbero();
+//        barbero.setBarberoId(id);
+//        return barbero;
+//    }
 
     default List<DetalleVentaResponseDTO> mapDetalles(List<DetalleVenta> detalles) {
 

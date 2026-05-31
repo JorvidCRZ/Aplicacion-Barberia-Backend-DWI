@@ -16,6 +16,9 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
+    Page<Cliente> findByActivoTrue(Pageable pageable);
+    Page<Cliente> findByActivoFalse(Pageable pageable);
+
     boolean existsByPersona_PersonaId(Integer personaId);
 
     Optional<Cliente> findByPersona_Usuario_IdUsuario(Integer usuarioId);
@@ -41,31 +44,35 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     /* Clientes registrados en el mes en curso. */
     @Query("""
-            SELECT c FROM Cliente c
-            WHERE MONTH(c.fechaRegistro) = MONTH(CURRENT_DATE)
-              AND YEAR(c.fechaRegistro)  = YEAR(CURRENT_DATE)
-            """)
+        SELECT c FROM Cliente c
+        WHERE c.activo = true
+          AND MONTH(c.fechaRegistro) = MONTH(CURRENT_DATE)
+          AND YEAR(c.fechaRegistro)  = YEAR(CURRENT_DATE)
+        """)
     Page<Cliente> filtrarPorMesActual(Pageable pageable);
 
     /* Clientes registrados en el año en curso. */
     @Query("""
-            SELECT c FROM Cliente c
-            WHERE YEAR(c.fechaRegistro) = YEAR(CURRENT_DATE)
-            """)
+        SELECT c FROM Cliente c
+        WHERE c.activo = true
+          AND YEAR(c.fechaRegistro) = YEAR(CURRENT_DATE)
+        """)
     Page<Cliente> filtrarPorAnioActual(Pageable pageable);
 
     /*Clientes recientes: los últimos N registros ordenados por fecha de registro descendente.  El tamaño de página controla cuántos se devuelven.*/
     @Query("""
-            SELECT c FROM Cliente c
-            ORDER BY c.fechaRegistro DESC
-            """)
+        SELECT c FROM Cliente c
+        WHERE c.activo = true
+        ORDER BY c.fechaRegistro DESC
+        """)
     Page<Cliente> filtrarRecientes(Pageable pageable);
 
     /* Clientes registrados entre dos fechas. */
     @Query("""
-            SELECT c FROM Cliente c
-            WHERE c.fechaRegistro BETWEEN :fechaInicio AND :fechaFin
-            """)
+        SELECT c FROM Cliente c
+        WHERE c.activo = true
+          AND c.fechaRegistro BETWEEN :fechaInicio AND :fechaFin
+        """)
     Page<Cliente> filtrarPorRangoFechas(
             @Param("fechaInicio") LocalDate fechaInicio,
             @Param("fechaFin") LocalDate fechaFin,

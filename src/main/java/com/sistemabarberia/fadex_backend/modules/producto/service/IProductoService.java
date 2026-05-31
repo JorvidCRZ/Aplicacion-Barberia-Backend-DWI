@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface IProductoService {
+    ProductoResponse obtenerProductoPublicadoPorId(Long id);
+    PageResponse<ProductoResponse> listarProductosPublicos(ProductoFiltro filtro, Pageable pageable);
     PageResponse<ProductoResponse> listarProductoFiltros(ProductoFiltro filtro, Pageable pageable);
     ProductoResponse obtenerProductoPorId(Long id);
     ProductoResponse crearProducto(ProductoRequest request, List<MultipartFile> archivos);

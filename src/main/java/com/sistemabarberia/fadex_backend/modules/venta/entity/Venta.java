@@ -26,12 +26,16 @@ public class Venta {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_barbero")
-    private Barbero barbero;
+//    @ManyToOne
+//    @JoinColumn(name = "id_barbero")
+//    private Barbero barbero;
 
     @Column(name = "fecha")
     private LocalDateTime fecha;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_comprobante")
+    private TipoComprobante tipoComprobante;
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVenta> detalles;

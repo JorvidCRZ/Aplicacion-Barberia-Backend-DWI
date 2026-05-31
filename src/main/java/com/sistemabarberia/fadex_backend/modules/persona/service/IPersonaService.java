@@ -25,4 +25,7 @@ public interface IPersonaService {
     //Buscar
     PersonaResponseDTO buscarPersona(Integer id);
 
+    void actualizarPorUsuarioId(Integer usuarioId, PersonaUpdateRequestDTO dto);
+
+
 }

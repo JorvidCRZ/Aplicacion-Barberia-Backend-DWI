@@ -17,6 +17,12 @@ public interface IClienteService {
 
     Page<ClienteResponseDTO> listarClientes(Pageable pageable);
 
+    Page<ClienteResponseDTO> listarClientesInhabilitados(Pageable pageable);
+
+    void deshabilitarCliente(Integer id);
+
+    void reactivarCliente(Integer id);
+
     ClienteResponseDTO crearCliente(ClienteRequestDTO dto);
 
     ClienteResponseDTO eliminar(Integer id);
@@ -51,4 +57,7 @@ public interface IClienteService {
     ClienteDetalleResumenDTO obtenerResumenCliente(Integer clienteId);
 
     List<ActividadRecienteResponse> obtenerActividadReciente(Integer idCliente);
+    ClienteResponseDTO obtenerPerfilPropio(Integer usuarioId);
+
+    ClienteDetalleResumenDTO obtenerResumenPropio(Integer usuarioId);
 }

@@ -28,6 +28,18 @@ public class Usuario {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "apellido")
+    private String apellido;
+
+    @Column(name = "telefono")
+    private String telefono;
+
+    @Column(name = "correo", unique = true)
+    private String correo;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_rol",
             joinColumns = @JoinColumn(name = "usuario_id"),

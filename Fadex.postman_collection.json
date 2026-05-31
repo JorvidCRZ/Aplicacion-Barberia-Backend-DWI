@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "3e14f2d6-f83d-44f6-a908-b020c87efdba",
+    "_postman_id": "34a65960-42f0-4cf8-ba4d-32ef20137f59",
     "name": "Fadex",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "47585629",
-    "_collection_link": "https://go.postman.co/collection/47585629-3e14f2d6-f83d-44f6-a908-b020c87efdba?source=collection_link"
+    "_exporter_id": "45294781",
+    "_collection_link": "https://go.postman.co/collection/45294781-34a65960-42f0-4cf8-ba4d-32ef20137f59?source=collection_link"
   },
   "item": [
     {
@@ -1330,6 +1330,33 @@
       "name": "Servicio",
       "item": [
         {
+          "name": "Listar Servicio",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAwNjIyNTYsImV4cCI6MTc4MDA2MzE1Nn0.grG1fOZi4GBOPu_YEG1v7g_IbhwaRuUiL4ovsjML9ZbfJBn7sDw7gwpkgg_KR3uj",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/servicios",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "servicios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Crear Servicio",
           "request": {
             "auth": {
@@ -1337,7 +1364,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{token}}",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3Nzk3Nzc0MTcsImV4cCI6MTc3OTc3ODMxN30.IgZXkOwiWVq30AyJ6DRTpY8ZPQH9DIOekZccAgcyoMt50inbKfq7Y6hkB9rIINTv",
                   "type": "string"
                 }
               ]
@@ -1349,7 +1376,7 @@
               "formdata": [
                 {
                   "key": "servicio",
-                  "value": "{\n  \"nombre\": \"Corte Mullet Moderno33\",\n  \"precio\": 40.00,\n  \"categoriaId\": 4,\n  \"duracion\": 60\n}",
+                  "value": "{\n  \"nombre\": \"Corte Fade Premium Actualizado\",\n  \"precio\": 35,\n  \"categoriaId\": 4,\n  \"duracion\": 50\n}",
                   "type": "text",
                   "uuid": "807d3c6f-ba02-48c0-97c0-1ce426e137ca",
                   "contentType": "application/json"
@@ -1358,24 +1385,24 @@
                   "key": "archivos",
                   "type": "file",
                   "uuid": "40782075-6ee2-4fb3-b0fd-171a53ce9f48",
-                  "src": "/C:/Users/David/Downloads/corte mulllet.jpg"
+                  "src": "/C:/Users/garf2/Downloads/dybala.jpg"
                 }
               ]
             },
             "url": {
-              "raw": "{{api}}/servicio",
+              "raw": "{{api}}/servicios",
               "host": [
                 "{{api}}"
               ],
               "path": [
-                "servicio"
+                "servicios"
               ]
             }
           },
           "response": []
         },
         {
-          "name": "Listar Servicio",
+          "name": "Listar Publicado",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -1385,7 +1412,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{token}}",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAwNjIyNTYsImV4cCI6MTc4MDA2MzE1Nn0.grG1fOZi4GBOPu_YEG1v7g_IbhwaRuUiL4ovsjML9ZbfJBn7sDw7gwpkgg_KR3uj",
                   "type": "string"
                 }
               ]
@@ -1402,64 +1429,80 @@
               }
             },
             "url": {
-              "raw": "{{api}}/servicio",
+              "raw": "{{api}}/servicios/publicados",
               "host": [
                 "{{api}}"
               ],
               "path": [
-                "servicio"
+                "servicios",
+                "publicados"
               ]
             }
           },
-          "response": [
-            {
-              "name": "Listar ServicioiD",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{api}}/servicio/2",
-                  "host": [
-                    "{{api}}"
-                  ],
-                  "path": [
-                    "servicio",
-                    "2"
-                  ]
-                }
-              },
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": "{\r\n    \"servicioId\": 4,\r\n    \"nombre\": \"Corte Fade VIP -recontraoficial3\",\r\n    \"precio\": 40.00,\r\n    \"categoriaId\": 4,\r\n    \"categoriaNombre\": \"Cortes\",\r\n    \"duracion\": 50,\r\n    \"urlsMultimedia\": [\r\n        \"productos/2026/05/c306b947-79ce-4eec-8f91-29a56c7df5d7.jpg\"\r\n    ]\r\n}"
-            },
-            {
-              "name": "Listar Servicio",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{api}}/servicio",
-                  "host": [
-                    "{{api}}"
-                  ],
-                  "path": [
-                    "servicio"
-                  ]
-                }
-              },
-              "_postman_previewlanguage": "",
-              "header": [],
-              "cookie": [
+          "response": []
+        },
+        {
+          "name": "Filtrar Por Nombre",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
                 {
-                  "expires": "Invalid Date",
-                  "domain": "",
-                  "path": ""
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAwNjIyNTYsImV4cCI6MTc4MDA2MzE1Nn0.grG1fOZi4GBOPu_YEG1v7g_IbhwaRuUiL4ovsjML9ZbfJBn7sDw7gwpkgg_KR3uj",
+                  "type": "string"
                 }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/servicios/publicados?nombre=Corte Fade Primium",
+              "host": [
+                "{{api}}"
               ],
-              "body": "[\r\n    {\r\n        \"servicioId\": 3,\r\n        \"nombre\": \"corte cabello\",\r\n        \"precio\": 18.50,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 20,\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/acb4fb7a-056f-4b94-91da-e3485390404a.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 5,\r\n        \"nombre\": \"arreglo de barba\",\r\n        \"precio\": 18.50,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 20,\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/39999507-c82f-4dee-b78e-b22b00697fc8.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 6,\r\n        \"nombre\": \"arreglo de barba\",\r\n        \"precio\": 18.50,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 20,\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/4834c68e-a3ca-4656-998f-884c2681808b.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 7,\r\n        \"nombre\": \"Corte Fade Premium\",\r\n        \"precio\": 35.00,\r\n        \"categoriaId\": 1,\r\n        \"categoriaNombre\": \"Afeitados\",\r\n        \"duracion\": 45,\r\n        \"urlsMultimedia\": []\r\n    },\r\n    {\r\n        \"servicioId\": 1,\r\n        \"nombre\": \"Corte Fade VIP\",\r\n        \"precio\": 40.00,\r\n        \"categoriaId\": 1,\r\n        \"categoriaNombre\": \"Afeitados\",\r\n        \"duracion\": 50,\r\n        \"urlsMultimedia\": []\r\n    },\r\n    {\r\n        \"servicioId\": 8,\r\n        \"nombre\": \"Corte Fade\",\r\n        \"precio\": 35.00,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 45,\r\n        \"urlsMultimedia\": [\r\n            \"servicios/2026/05/02704b43-0b9e-447f-b6b7-7a5df089dfed.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 9,\r\n        \"nombre\": \"Corte Mullet Moderno\",\r\n        \"precio\": 40.00,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 60,\r\n        \"urlsMultimedia\": [\r\n            \"servicios/2026/05/8e2e0ace-ee5f-4428-a48e-536b52558307.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 10,\r\n        \"nombre\": \"Corte Mullet Moderno3\",\r\n        \"precio\": 40.00,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 60,\r\n        \"urlsMultimedia\": [\r\n            \"servicios/2026/05/ecc831ac-a430-4adc-bbd5-fe9098aae3c1.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"servicioId\": 4,\r\n        \"nombre\": \"Corte Fade VIP -recontraoficial3\",\r\n        \"precio\": 40.00,\r\n        \"categoriaId\": 4,\r\n        \"categoriaNombre\": \"Cortes\",\r\n        \"duracion\": 50,\r\n        \"urlsMultimedia\": [\r\n            \"productos/2026/05/c306b947-79ce-4eec-8f91-29a56c7df5d7.jpg\"\r\n        ]\r\n    }\r\n]"
+              "path": [
+                "servicios",
+                "publicados"
+              ],
+              "query": [
+                {
+                  "key": "nombre",
+                  "value": "Corte Fade Primium"
+                }
+              ]
             }
-          ]
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Publicado Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAwNjIyNTYsImV4cCI6MTc4MDA2MzE1Nn0.grG1fOZi4GBOPu_YEG1v7g_IbhwaRuUiL4ovsjML9ZbfJBn7sDw7gwpkgg_KR3uj",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/servicios/publicados/12",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "servicios",
+                "publicados",
+                "12"
+              ]
+            }
+          },
+          "response": []
         },
         {
           "name": "Actualizar Servicio",
@@ -1469,7 +1512,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{token}}",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAwNjM4MDYsImV4cCI6MTc4MDA2NDcwNn0.-CCNrOhMfMbSeHpdz0lqvQ7Zy1R645WzJcw5sqvib-ApZ33YnaZgw-7xP0ukbJeQ",
                   "type": "string"
                 }
               ]
@@ -1481,44 +1524,79 @@
               "formdata": [
                 {
                   "key": "servicio",
-                  "value": "{\n    \"nombre\": \"Corte Fade VIP -recontraoficial3\",\n    \"precio\": 40.00,\n    \"categoriaId\": 4,\n    \"duracion\": 50\n}",
+                  "value": "{\n  \"nombre\": \"Corte Premium\",\n  \"precio\": 30,\n  \"categoriaId\": 4,\n  \"duracion\": 45\n}",
                   "type": "text",
-                  "uuid": "c8985521-b79a-466a-9b39-95d98c9f7c36",
+                  "uuid": "d0c87198-c9fe-4862-8bd5-69d356146158",
                   "contentType": "application/json"
                 },
                 {
                   "key": "archivos",
                   "type": "file",
-                  "uuid": "66590640-29f4-46b8-bdf2-257dfb2171ab",
-                  "src": "/C:/Users/David/Downloads/corte mulllet.jpg"
+                  "uuid": "b08ff166-cbc7-4520-b17b-80398cda24cf",
+                  "src": "/C:/Users/garf2/OneDrive/Imágenes/dybalaF.jpg"
                 }
               ]
             },
             "url": {
-              "raw": "{{api}}/servicio/2",
+              "raw": "{{api}}/servicios/12",
               "host": [
                 "{{api}}"
               ],
               "path": [
-                "servicio",
-                "2"
+                "servicios",
+                "12"
               ]
             }
           },
           "response": []
         },
         {
-          "name": "Eliminar Servicio",
+          "name": "Cambiar Estado",
           "request": {
-            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAwNjM4MDYsImV4cCI6MTc4MDA2NDcwNn0.-CCNrOhMfMbSeHpdz0lqvQ7Zy1R645WzJcw5sqvib-ApZ33YnaZgw-7xP0ukbJeQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
             "header": [],
             "url": {
-              "raw": "{{api}}/servicio/1",
+              "raw": "{{api}}/servicios/12/estado?estado=false",
               "host": [
                 "{{api}}"
               ],
               "path": [
-                "servicio",
+                "servicios",
+                "12",
+                "estado"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/servicios/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "servicios",
                 "1"
               ]
             }
@@ -1744,6 +1822,138 @@
                 "1"
               ]
             }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pagos",
+      "item": [
+        {
+          "name": "Registrar Pagos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAxODczNDksImV4cCI6MTc4MDE4ODI0OX0.UesUuLW70h3XMn0AiMjAPHceoiRMugX4d_e34OnCjc_pv1-77cRtC72YICZv1VzG",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"clienteId\": 1,\r\n    \"barberoId\": 1,\r\n    \"reservaId\": 7,\r\n    \"monto\": 35.00,\r\n    \"metodo\": \"YAPE\",\r\n    \"tipo\": \"RESERVA\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/pagos",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "pagos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pago Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAxODc5NzQsImV4cCI6MTc4MDE4ODg3NH0.W71ASKarx9y1BMD-IxvZsNFFRl7aDgcpRZE_QAU3iyN5Wcc4iraHX3QQ5ocyNlNs",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/pagos/4",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "pagos",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Pago",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6WyJST0xFX2FkbWluIl0sInBlcm1pc29zIjpbIlJFU0VSVkFfUkVBRF9BTEwiLCJSRVNFUlZBX1VQREFURV9BTEwiLCJVU1VBUklPX1JFQURfQUxMIiwiQ09SVEVfREVMRVRFX0FMTCIsIlBST0RVQ1RPX1JFQUQiLCJVU1VBUklPX1VQREFURV9BTEwiLCJDT05GSUdVUkFDSU9OX1VQREFURSIsIkJBUkJFUk9fVVBEQVRFX0FMTCIsIlJFUE9SVEVfUkVBRF9BTEwiLCJQUk9EVUNUT19DUkVBVEUiLCJWRU5UQV9SRUFEX0FMTCIsIlJFU0VSVkFfQ0FOQ0VMX0FMTCIsIkNBVEVHT1JJQV9SRUFEIiwiU0VSVklDSU9fUkVBRCIsIlBST0RVQ1RPX0RFTEVURV9BTEwiLCJSRVNFUlZBX0RFTEVURV9BTEwiLCJWRU5UQV9DQU5DRUxfQUxMIiwiQ0xJRU5URV9VUERBVEVfQUxMIiwiVkVOVEFfQ1JFQVRFIiwiVVNVQVJJT19ERUxFVEVfQUxMIiwiRVNUQURJU1RJQ0FfUkVBRF9BTEwiLCJVU1VBUklPX0NSRUFURSIsIkNBVEVHT1JJQV9DUkVBVEUiLCJQUk9EVUNUT19VUERBVEVfQUxMIiwiQkFSQkVST19ERUxFVEVfQUxMIiwiQ0FURUdPUklBX1VQREFURV9BTEwiLCJDT1JURV9SRUFEX0FMTCIsIkNMSUVOVEVfUkVBRF9BTEwiLCJDQVRFR09SSUFfREVMRVRFX0FMTCIsIkJBUkJFUk9fQ1JFQVRFIiwiQ09ORklHVVJBQ0lPTl9SRUFEIiwiQ0xJRU5URV9ERUxFVEVfQUxMIiwiREFTSEJPQVJEX1JFQURfQURNSU4iLCJTRVJWSUNJT19VUERBVEVfQUxMIiwiU0VSVklDSU9fQ1JFQVRFIiwiQ0xJRU5URV9DUkVBVEUiLCJSRVNFUlZBX0NSRUFURSIsIlZFTlRBX1VQREFURV9BTEwiLCJTRVJWSUNJT19ERUxFVEVfQUxMIiwiUkVTRVJWQV9NQU5BR0UiLCJWRU5UQV9ERUxFVEVfQUxMIiwiQkFSQkVST19SRUFEX0FMTCJdLCJpYXQiOjE3ODAxODc5NzQsImV4cCI6MTc4MDE4ODg3NH0.W71ASKarx9y1BMD-IxvZsNFFRl7aDgcpRZE_QAU3iyN5Wcc4iraHX3QQ5ocyNlNs",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"idCliente\": 1,\r\n  \"idBarbero\": 1,\r\n  \"idReservas\": 7,\r\n  \"monto\": 40,\r\n  \"metodo\": \"TARJETA\",\r\n  \"tipo\": \"RESERVA\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api}}/pagos/4",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "pagos",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Pagos",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/pagos/4",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "pagos",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Historial Pago",
+          "request": {
+            "method": "GET",
+            "header": []
           },
           "response": []
         }

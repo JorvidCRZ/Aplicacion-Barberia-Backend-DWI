@@ -4,9 +4,12 @@ import com.sistemabarberia.fadex_backend.auth.authentication.dto.request.LoginRe
 import com.sistemabarberia.fadex_backend.auth.authentication.dto.request.RefreshRequest;
 import com.sistemabarberia.fadex_backend.auth.authentication.dto.response.TokenResponse;
 import com.sistemabarberia.fadex_backend.auth.authentication.service.AuthService;
+import com.sistemabarberia.fadex_backend.auth.authentication.dto.request.RegisterRequest;
+import com.sistemabarberia.fadex_backend.auth.usuario.dto.response.UsuarioResponse;
 import com.sistemabarberia.fadex_backend.commons.response.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,5 +38,11 @@ public class AuthController {
     public ResponseEntity<Void> logout ( @RequestBody RefreshRequest refreshRequest) {
         authService.logout(refreshRequest.refreshToken());
         return ResponseEntity.ok().build();
+    }
+    @PostMapping("/register")
+    public ResponseEntity<ApiResponse<UsuarioResponse>> register(
+            @Valid @RequestBody RegisterRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.ok("Cuenta creada correctamente", authService.register(request)));
     }
 }

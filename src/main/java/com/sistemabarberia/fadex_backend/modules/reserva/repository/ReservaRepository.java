@@ -170,4 +170,5 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
             @Param("idReserva") Long idReserva,
             @Param("username") String username
     );
+    List<Reserva> findByFechaOrderByHoraInicioAsc(LocalDate fecha);
 }

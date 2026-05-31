@@ -86,4 +86,13 @@ public class PersonaController {
     */
 
     /*AVANZADOS*/
+
+    @PatchMapping("/actualizar/por-usuario/{usuarioId}")
+    public ResponseEntity<ApiResponse<Void>> actualizarPorUsuarioId(
+            @PathVariable Integer usuarioId,
+            @Valid @RequestBody PersonaUpdateRequestDTO request
+    ) {
+        personaService.actualizarPorUsuarioId(usuarioId, request);
+        return ResponseEntity.ok(ApiResponse.ok("Persona actualizada correctamente"));
+    }
 }

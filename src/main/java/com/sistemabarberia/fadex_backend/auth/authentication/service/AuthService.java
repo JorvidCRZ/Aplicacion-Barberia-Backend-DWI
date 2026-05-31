@@ -6,12 +6,16 @@ import com.sistemabarberia.fadex_backend.auth.authentication.dto.response.TokenR
 import com.sistemabarberia.fadex_backend.auth.refreshToken.entity.RefreshToken;
 import com.sistemabarberia.fadex_backend.auth.refreshToken.repository.RefreshTokenRepository;
 import com.sistemabarberia.fadex_backend.auth.refreshToken.service.RefreshTokenService;
+import com.sistemabarberia.fadex_backend.auth.rol.Entity.Rol;
+import com.sistemabarberia.fadex_backend.auth.rol.Entity.RolRepository;
 import com.sistemabarberia.fadex_backend.auth.security.jwt.JwtProperties;
 import com.sistemabarberia.fadex_backend.auth.security.jwt.JwtService;
 import com.sistemabarberia.fadex_backend.auth.security.service.CustomUserDetailService;
 import com.sistemabarberia.fadex_backend.auth.security.service.CustomUserDetails;
 import com.sistemabarberia.fadex_backend.auth.usuario.Entity.Usuario;
 import com.sistemabarberia.fadex_backend.auth.usuario.Repository.UsuarioRepository;
+import com.sistemabarberia.fadex_backend.auth.authentication.dto.request.RegisterRequest;
+import com.sistemabarberia.fadex_backend.auth.usuario.dto.response.UsuarioResponse;
 import com.sistemabarberia.fadex_backend.commons.exception.BusinessException;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -23,24 +27,28 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
+
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-    private final JwtProperties props;
-    private final JwtProperties jwtProperties;
+    private final JwtProperties props;          // ← solo este, borramos jwtProperties
     private final RefreshTokenService tokenRefreshService;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserDetailsService userDetailsService;
-    private final UsuarioRepository usuarioRepositorio;
+    private final UsuarioRepository usuarioRepository;
+    private final RolRepository rolRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     public TokenResponse login(LoginRequest request) {
@@ -51,15 +59,13 @@ public class AuthService {
                 )
         );
 
-
-       CustomUserDetails custom =  (CustomUserDetails) authentication.getPrincipal();
-       Usuario usuario = custom.getUsuario();
+        CustomUserDetails custom = (CustomUserDetails) authentication.getPrincipal();
+        Usuario usuario = custom.getUsuario();
 
         String token = jwtService.generateToken(custom);
 
         String username = jwtService.extractClaim(token, Claims::getSubject);
-        long expiredIn = jwtProperties.getExpiration() / 1000;
-
+        long expiredIn = props.getExpiration() / 1000;  // ← era jwtProperties, ahora props
 
         List<String> roles = jwtService.extractClaim(token,
                 claims -> claims.get("roles", List.class));
@@ -70,9 +76,10 @@ public class AuthService {
         String rol = (roles != null && !roles.isEmpty())
                 ? roles.get(0).replace("ROLE_", "")
                 : null;
+
         RefreshToken refreshToken = tokenRefreshService.crearRefreshToken(usuario);
 
-        return new TokenResponse(token,refreshToken.getToken(), "bearer", expiredIn, username, rol, permisos);
+        return new TokenResponse(token, refreshToken.getToken(), "bearer", expiredIn, username, rol, permisos);
     }
 
     @Transactional
@@ -80,7 +87,7 @@ public class AuthService {
 
 
         if (token == null || token.isBlank()) {
-            throw new BusinessException("Refresh token es requerido",HttpStatus.BAD_REQUEST);
+            throw new BusinessException("Refresh token es requerido", HttpStatus.BAD_REQUEST);
         }
 
 
@@ -92,7 +99,6 @@ public class AuthService {
 
 
         Usuario usuario = storedToken.getUsuario();
-
 
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(usuario.getUser());
@@ -131,9 +137,43 @@ public class AuthService {
     }
 
 
-    public void logout(String refreshToken){
-        RefreshToken token = refreshTokenRepository.findByToken(refreshToken).orElseThrow(()->new BusinessException("token no existe",HttpStatus.BAD_REQUEST));
+    public void logout(String refreshToken) {
+        RefreshToken token = refreshTokenRepository.findByToken(refreshToken).orElseThrow(() -> new BusinessException("token no existe", HttpStatus.BAD_REQUEST));
         token.setRevoked(true);
         refreshTokenRepository.save(token);
+    }
+
+    public UsuarioResponse register(RegisterRequest request) {
+        if (usuarioRepository.existsByCorreo(request.getCorreo())) {
+            throw new BusinessException("El correo ya está registrado", HttpStatus.CONFLICT);
+        }
+
+        Rol rolCliente = rolRepository.findByNombre("cliente")
+                .orElseThrow(() -> new BusinessException("Rol cliente no encontrado", HttpStatus.NOT_FOUND));
+
+        Usuario usuario = new Usuario();
+        usuario.setUser(request.getCorreo());
+        usuario.setNombre(request.getNombre());
+        usuario.setApellido(request.getApellido());
+        usuario.setTelefono(request.getTelefono());
+        usuario.setCorreo(request.getCorreo());
+        usuario.setPassword(passwordEncoder.encode(request.getPassword()));
+        usuario.setRoles(new HashSet<>(Set.of(rolCliente)));
+
+        Usuario guardado = usuarioRepository.save(usuario);
+
+        UsuarioResponse response = new UsuarioResponse();
+        response.setIdUsuario(guardado.getIdUsuario());
+        response.setUsername(guardado.getUser());
+        response.setNombre(guardado.getNombre());
+        response.setApellido(guardado.getApellido());
+        response.setEmail(guardado.getCorreo());
+        response.setTelefono(guardado.getTelefono());
+        response.setRol(guardado.getRoles().stream()
+                .findFirst()
+                .map(Rol::getNombre)
+                .orElse(null));
+
+        return response;
     }
 }

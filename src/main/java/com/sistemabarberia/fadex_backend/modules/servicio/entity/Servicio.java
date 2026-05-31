@@ -34,6 +34,14 @@
 
         private Integer duracion;
 
+        @Column(name = "estado")
+        @Builder.Default
+        private Boolean estado = true;
+
+        @Column(name = "publicado")
+        @Builder.Default
+        private Boolean publicado = false;
+
         @ElementCollection
         @CollectionTable(name = "servicio_multimedia", joinColumns = @JoinColumn(name = "id_servicio"))
         @Column(name = "url_recurso")

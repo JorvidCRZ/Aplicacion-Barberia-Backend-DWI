@@ -78,4 +78,18 @@ public class PersonaServiceImpl implements IPersonaService {
 
         return mapper.toResponseDTO(persona);
     }
+
+    @Override
+    public void actualizarPorUsuarioId(Integer usuarioId, PersonaUpdateRequestDTO dto) {
+
+        Persona persona = personaRepository.findByUsuarioId(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Persona no encontrada para el usuario: " + usuarioId));
+
+        persona.setNombre(dto.getNombre());
+        persona.setApellido(dto.getApellido());
+        persona.setTelefono(dto.getTelefono());
+        persona.setEmail(dto.getEmail());  // o setCorreo() según tu entidad
+
+        personaRepository.save(persona);
+    }
 }

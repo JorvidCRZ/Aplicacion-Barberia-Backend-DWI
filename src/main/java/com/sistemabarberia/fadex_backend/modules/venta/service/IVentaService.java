@@ -11,6 +11,8 @@ public interface IVentaService {
 
     List<VentaResponseDTO> listar();
 
+    List<VentaResponseDTO> listar(String cliente);
+
     VentaResponseDTO obtenerPorId(Integer id);
 
     VentaResponseDTO actualizar(Integer id, VentaRequestDTO dto);

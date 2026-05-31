@@ -44,14 +44,15 @@ public class VentaServiceImpl implements IVentaService {
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
 
-        Barbero barbero = barberoRepository.findById(dto.getBarberoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Barbero no encontrado"));
+//        Barbero barbero = barberoRepository.findById(dto.getBarberoId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Barbero no encontrado"));
 
         Venta venta = new Venta();
 
         venta.setCliente(cliente);
-        venta.setBarbero(barbero);
+//        venta.setBarbero(barbero);
         venta.setFecha(dto.getFecha());
+        venta.setTipoComprobante(dto.getTipoComprobante());
 
         List<DetalleVenta> detalles = dto.getDetalles()
                 .stream()
@@ -91,6 +92,17 @@ public class VentaServiceImpl implements IVentaService {
     }
 
     @Override
+    public List<VentaResponseDTO> listar(String cliente) {
+        // Si viene texto, filtramos
+        if (cliente != null && !cliente.isEmpty()) {
+            return ventaMapper.toResponseList(
+                    ventaRepository.findByCliente_Persona_NombreContainingIgnoreCase(cliente)
+            );
+        }
+        return listar();
+    }
+
+    @Override
     public VentaResponseDTO obtenerPorId(Integer id) {
         Venta venta = Optional.ofNullable(
                 ventaRepository.findByIdWithDetalles(id)
@@ -109,13 +121,14 @@ public class VentaServiceImpl implements IVentaService {
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
 
-        Barbero barbero = barberoRepository.findById(dto.getBarberoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Barbero no encontrado"));
+//        Barbero barbero = barberoRepository.findById(dto.getBarberoId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Barbero no encontrado"));
 
         // ACTUALIZAR VENTA
         venta.setCliente(cliente);
-        venta.setBarbero(barbero);
+//        venta.setBarbero(barbero);
         venta.setFecha(dto.getFecha());
+        venta.setTipoComprobante(dto.getTipoComprobante());
 
         detalleVentaRepository.deleteAll(venta.getDetalles());
 

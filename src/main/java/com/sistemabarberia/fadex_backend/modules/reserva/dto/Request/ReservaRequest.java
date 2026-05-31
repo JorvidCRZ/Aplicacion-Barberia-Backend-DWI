@@ -8,6 +8,7 @@ public record ReservaRequest(
         Integer barberoId,
         Long servicioId,
         LocalDate fecha,
-        LocalTime horaInicio
-
+        LocalTime horaInicio,
+        String observacion,
+        boolean esGratis
 ) {}

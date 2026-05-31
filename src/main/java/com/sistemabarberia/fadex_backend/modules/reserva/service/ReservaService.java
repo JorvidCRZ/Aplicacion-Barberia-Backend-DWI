@@ -10,6 +10,7 @@ import com.sistemabarberia.fadex_backend.modules.barbero.entity.Barbero;
 import com.sistemabarberia.fadex_backend.modules.barbero.repository.BarberoRepository;
 import com.sistemabarberia.fadex_backend.modules.cliente.entity.Cliente;
 import com.sistemabarberia.fadex_backend.modules.cliente.repository.ClienteRepository;
+import com.sistemabarberia.fadex_backend.modules.recompensa.service.IRecompensaService;
 import com.sistemabarberia.fadex_backend.modules.reserva.dto.Request.ReservaRequest;
 import com.sistemabarberia.fadex_backend.modules.reserva.dto.Response.*;
 import com.sistemabarberia.fadex_backend.modules.reserva.entity.EstadoReserva;
@@ -19,6 +20,8 @@ import com.sistemabarberia.fadex_backend.modules.reserva.mapper.ReservaMapper;
 import com.sistemabarberia.fadex_backend.modules.reserva.repository.ReservaRepository;
 import com.sistemabarberia.fadex_backend.modules.reserva.dto.Request.ActualizarEstadoReservaDTO;
 import com.sistemabarberia.fadex_backend.modules.persona.entity.Persona;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import com.sistemabarberia.fadex_backend.modules.servicio.entity.Servicio;
 
@@ -29,9 +32,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +49,7 @@ public class ReservaService {
     private final ServicioRepository servicioRepository;
     private final ReservaMapper reservaMapper;
     private final UsuarioSecurityService securityService;
+    private final IRecompensaService recompensaService;
 
     @Transactional
     public ReservaDTO crearReserva(ReservaRequest request) {
@@ -76,7 +82,13 @@ public class ReservaService {
         }
         LocalTime horaFin = request.horaInicio().plusMinutes(servicio.getDuracion());
         validarConflicto(barbero, request.fecha(), request.horaInicio(), horaFin);
-        Reserva reserva = crearReservaInterna(cliente, servicio, barbero, request.fecha(), request.horaInicio(), TipoReserva.RESERVA_VIRTUAL, EstadoReserva.CONFIRMADA);
+
+        TipoReserva tipo = request.esGratis() ? TipoReserva.RESERVA_GRATIS : TipoReserva.RESERVA_VIRTUAL;
+        if (request.esGratis()) {
+            recompensaService.canjearCorteGratis(cliente.getClienteId());
+        }
+        Reserva reserva = crearReservaInterna(cliente, servicio, barbero, request.fecha(), request.horaInicio(), tipo, EstadoReserva.CONFIRMADA);
+        //Reserva reserva = crearReservaInterna(cliente, servicio, barbero, request.fecha(), request.horaInicio(), TipoReserva.RESERVA_VIRTUAL, EstadoReserva.CONFIRMADA);
         return reservaMapper.toDto(reserva);
     }
 
@@ -98,7 +110,7 @@ public class ReservaService {
         reserva.setHoraInicio(horaInicio);
         reserva.setTipoReserva(tipo);
         reserva.setHoraFin(horaFin);
-        reserva.setTotal(servicio.getPrecio());
+        reserva.setTotal(tipo == TipoReserva.RESERVA_GRATIS ? BigDecimal.ZERO : servicio.getPrecio());
         reserva.setEstadoReserva(estado);
         return reservaRepository.save(reserva);
     }
@@ -112,15 +124,24 @@ public class ReservaService {
     }
 
     public List<ReservaDTO> ListarReservasPorCliente(Usuario usuario) {
-        Cliente cliente = clienteRepository.findByPersonaUsuario(usuario).orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
+        System.out.println("USUARIO ID: " + usuario.getIdUsuario());
+
+        Cliente cliente = clienteRepository.findByPersona_Usuario_IdUsuario(usuario.getIdUsuario())
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
+
+        System.out.println("CLIENTE ID: " + cliente.getClienteId());
 
         List<Reserva> reservas = reservaRepository.findByCliente_ClienteId(cliente.getClienteId());
+
+        System.out.println("RESERVAS ENCONTRADAS: " + reservas.size());
 
         return reservaMapper.toDtoLista(reservas);
     }
 
-    public List<ReservaDTO> ListarReservasAdmin() {
-        return reservaRepository.findAll().stream().map(reservaMapper::toDto).toList();
+    public Page<ReservaDTO> listarReservasAdmin(Pageable pageable) {
+
+        return reservaRepository.findAll(pageable)
+                .map(reservaMapper::toDto);
     }
 
     public List<ReservaDTO> ListarReservasBarbero(Usuario usuario) {
@@ -183,7 +204,9 @@ public class ReservaService {
 
         reserva.setEstadoReserva(EstadoReserva.FINALIZADA);
         reserva.setHoraFin(LocalTime.now());
-        return reservaMapper.toDto(reservaRepository.save(reserva));
+        Reserva guardada = reservaRepository.save(reserva);
+
+        return reservaMapper.toDto(guardada);
     }
 
 
@@ -191,27 +214,56 @@ public class ReservaService {
 
         LocalDate hoy = LocalDate.now();
 
+        Barbero barbero = barberoRepository.findById(barberoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Barbero no encontrado"));
+
         List<ResumenSemanalDTO.DiaSemana> dias = hoy.minusDays(6)
                 .datesUntil(hoy.plusDays(1))
                 .map(fecha -> {
 
-                    LocalDate d = fecha;
-                    LocalDate h = fecha;
+                    List<Reserva> reservasDia = reservaRepository
+                            .findByBarberoIdAndFechaBetween(
+                                    barberoId,
+                                    fecha,
+                                    fecha
+                            );
 
-                    List<Reserva> r = reservaRepository
-                            .findByBarberoIdAndFechaBetween(barberoId, d, h);
+                    long atendidos = contar(reservasDia, EstadoReserva.FINALIZADA);
+
+                    long cancelados = contar(reservasDia, EstadoReserva.CANCELADA);
+
+                    BigDecimal totalIngresos = reservasDia.stream()
+                            .filter(r -> r.getEstadoReserva() == EstadoReserva.FINALIZADA)
+                            .map(Reserva::getTotal)
+                            .filter(Objects::nonNull)
+                            .reduce(BigDecimal.ZERO, BigDecimal::add);
 
                     return new ResumenSemanalDTO.DiaSemana(
                             fecha.toString(),
-                            contar(r, EstadoReserva.FINALIZADA),
-                            contar(r, EstadoReserva.CANCELADA
-                            )
+                            atendidos,
+                            cancelados,
+                            totalIngresos
                     );
                 })
                 .collect(Collectors.toList());
 
+        BigDecimal ingresosSemana = dias.stream()
+                .map(ResumenSemanalDTO.DiaSemana::getTotalIngresos)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal sueldoBase = barbero.getSueldo();
+
+        BigDecimal comisionSemanal = ingresosSemana.multiply(
+                barbero.getComision().divide(BigDecimal.valueOf(100))
+        );
+
+        BigDecimal totalSemana = sueldoBase.add(comisionSemanal);
+
         return ResumenSemanalDTO.builder()
                 .dias(dias)
+                .sueldoBase(sueldoBase)
+                .comisionSemanal(comisionSemanal)
+                .totalSemana(totalSemana)
                 .build();
     }
 
@@ -250,14 +302,27 @@ public class ReservaService {
 
     @Transactional(readOnly = true)
     public List<CitaBarberoResponseDTO> obtenerCitasHoy() {
-        if (!securityService.isBarbero()) {
-            throw new BusinessException("Acceso denegado: se requiere rol barbero", HttpStatus.FORBIDDEN);
-        }
 
         Usuario usuario = securityService.getUsuarioLogueado();
+        String rol = securityService.getRolePrincipal();
 
-        List<Reserva> reservas = reservaRepository
-                .findByBarberoUsernameAndFecha(usuario.getUser(), LocalDate.now());
+        List<Reserva> reservas;
+
+        if ("ROLE_admin".equals(rol)) {
+
+            reservas = reservaRepository.findByFechaOrderByHoraInicioAsc(LocalDate.now());
+
+        } else if ("ROLE_barbero".equals(rol)) {
+
+            reservas = reservaRepository
+                    .findByBarberoUsernameAndFecha(usuario.getUser(), LocalDate.now());
+
+        } else {
+            throw new BusinessException(
+                    "Acceso denegado",
+                    HttpStatus.FORBIDDEN
+            );
+        }
 
         return reservas.stream()
                 .map(this::mapToCitaBarberoDTO)

@@ -1,6 +1,7 @@
 package com.sistemabarberia.fadex_backend.modules.cliente.service.impl;
 
 import com.sistemabarberia.fadex_backend.commons.exception.BusinessException;
+import com.sistemabarberia.fadex_backend.commons.exception.ResourceNotFoundException;
 import com.sistemabarberia.fadex_backend.modules.barbero.repository.BarberoRepository;
 import com.sistemabarberia.fadex_backend.modules.cliente.dto.request.ClienteRequestDTO;
 import com.sistemabarberia.fadex_backend.modules.cliente.dto.response.ActividadRecienteResponse;
@@ -13,8 +14,11 @@ import com.sistemabarberia.fadex_backend.modules.cliente.repository.ClienteRepos
 import com.sistemabarberia.fadex_backend.modules.cliente.service.IClienteService;
 import com.sistemabarberia.fadex_backend.modules.persona.entity.Persona;
 import com.sistemabarberia.fadex_backend.modules.persona.repository.PersonaRepository;
+import com.sistemabarberia.fadex_backend.modules.recompensa.entity.Recompensa;
+import com.sistemabarberia.fadex_backend.modules.recompensa.repository.RecompensaRepository;
 import com.sistemabarberia.fadex_backend.modules.reserva.repository.ReservaRepository;
 import com.sistemabarberia.fadex_backend.modules.venta.repository.VentaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -44,16 +49,27 @@ public class ClienteServiceImpl implements IClienteService {
     private VentaRepository ventaRepository;
 
     @Autowired
+    private RecompensaRepository recompensaRepository;
+
+    @Autowired
     private ClienteMapper mapper;
 
     //CRUD básico
 
     @Override
     public Page<ClienteResponseDTO> listarClientes(Pageable pageable) {
-        return clienteRepository.findAll(pageable)
+        return clienteRepository.findByActivoTrue(pageable)
                 .map(mapper::toResponseDTO);
     }
 
+    @Override
+    public Page<ClienteResponseDTO> listarClientesInhabilitados(Pageable pageable) {
+        return clienteRepository.findByActivoFalse(pageable)
+                .map(mapper::toResponseDTO);
+    }
+
+
+    @Transactional
     @Override
     public ClienteResponseDTO crearCliente(ClienteRequestDTO dto) {
 
@@ -76,6 +92,16 @@ public class ClienteServiceImpl implements IClienteService {
 
         Cliente cliente = mapper.toEntity(dto, persona);
         Cliente guardado = clienteRepository.save(cliente);
+
+        // Se crea la tarjeta de recompensas automáticamente
+        Recompensa recompensa = Recompensa.builder()
+                .cliente(guardado)
+                .cortesAcumulados(0)
+                .cortesGratis(0)
+                .fechaActualizacion(LocalDateTime.now())
+                .build();
+        recompensaRepository.save(recompensa);
+
         return mapper.toResponseDTO(guardado);
     }
 
@@ -225,5 +251,44 @@ public class ClienteServiceImpl implements IClienteService {
                         .color((String) row[4])
                         .build()
         ).toList();
+    }
+
+    @Override
+    public void deshabilitarCliente(Integer id) {
+
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Cliente no encontrado"));
+
+        cliente.setActivo(false);
+
+        clienteRepository.save(cliente);
+    }
+
+    @Override
+    public void reactivarCliente(Integer id) {
+
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Cliente no encontrado"));
+
+        cliente.setActivo(true);
+
+        clienteRepository.save(cliente);
+    }
+    @Override
+    public ClienteResponseDTO obtenerPerfilPropio(Integer usuarioId) {
+        Cliente cliente = clienteRepository.findByPersona_Usuario_IdUsuario(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Cliente no encontrado para el usuario autenticado"));
+        return mapper.toResponseDTO(cliente);
+    }
+
+    @Override
+    public ClienteDetalleResumenDTO obtenerResumenPropio(Integer usuarioId) {
+        Cliente cliente = clienteRepository.findByPersona_Usuario_IdUsuario(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Cliente no encontrado para el usuario autenticado"));
+        return obtenerResumenCliente(cliente.getClienteId());
     }
 }

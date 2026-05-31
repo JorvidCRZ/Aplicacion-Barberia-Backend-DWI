@@ -24,15 +24,14 @@ public class VentaController {
     private final IVentaService ventaService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<VentaResponseDTO>>> listar() {
+    public ResponseEntity<ApiResponse<List<VentaResponseDTO>>> listar(
+            @RequestParam(required = false) String cliente) {
 
-        return ResponseEntity.ok(
-                ApiResponse.ok(
-                        "Ventas listadas correctamente",
-                        ventaService.listar()
-                )
-        );
+        if (cliente != null && !cliente.isEmpty()) {
+            return ResponseEntity.ok(ApiResponse.ok("Ventas filtradas", ventaService.listar(cliente)));
+        }
 
+        return ResponseEntity.ok(ApiResponse.ok("Ventas listadas correctamente", ventaService.listar()));
     }
 
     @GetMapping("/{id}")

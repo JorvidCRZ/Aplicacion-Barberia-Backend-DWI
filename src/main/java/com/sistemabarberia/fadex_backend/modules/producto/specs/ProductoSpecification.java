@@ -17,6 +17,10 @@ public class ProductoSpecification {
                 return cb.conjunction();
             }
 
+            if (filtro.getId() != null) {
+                predicates.add(cb.equal(root.get("id"), filtro.getId()));
+            }
+
             if (filtro.getNombre() != null && !filtro.getNombre().isBlank()) {
                 String nombre = filtro.getNombre().trim().toLowerCase();
                 predicates.add(cb.like(cb.lower(root.get("nombre")), "%" + nombre + "%"));

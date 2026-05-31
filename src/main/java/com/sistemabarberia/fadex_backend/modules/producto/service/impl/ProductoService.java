@@ -34,6 +34,21 @@ public class ProductoService implements IProductoService {
     private static final List<String> TIPOS_IMAGEN = List.of("image/jpeg", "image/png", "image/webp");
 
     @Override
+    public ProductoResponse obtenerProductoPublicadoPorId(Long id) {
+        Producto producto = productoRepository.findById(id).orElseThrow(() -> new BusinessException("Producto no encontrado", HttpStatus.NOT_FOUND));
+        if (!producto.isEstado() || !producto.isPublicado()) {
+            throw new BusinessException("Producto no disponible", HttpStatus.NOT_FOUND);
+        }
+        return productoMapper.toResponse(producto);
+    }
+
+    @Override
+    public PageResponse<ProductoResponse> listarProductosPublicos(ProductoFiltro filtro, Pageable pageable) {filtro.setEstado(true);filtro.setPublicado(true);
+        Page<Producto> pagina = productoRepository.findAll(ProductoSpecification.filtrar(filtro), pageable);
+        return PageResponse.of(pagina.map(productoMapper::toResponse));
+    }
+
+    @Override
     public PageResponse<ProductoResponse> listarProductoFiltros(ProductoFiltro filtro, Pageable pageable) {
         Page<Producto> pagina = productoRepository.findAll(ProductoSpecification.filtrar(filtro), pageable);
         return PageResponse.of(pagina.map(productoMapper::toResponse));

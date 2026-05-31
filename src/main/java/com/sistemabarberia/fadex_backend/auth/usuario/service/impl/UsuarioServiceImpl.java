@@ -1,26 +1,42 @@
 package com.sistemabarberia.fadex_backend.auth.usuario.service.impl;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.sistemabarberia.fadex_backend.auth.rol.Entity.Rol;
 import com.sistemabarberia.fadex_backend.auth.rol.Entity.RolRepository;
 import com.sistemabarberia.fadex_backend.auth.usuario.Entity.Usuario;
 import com.sistemabarberia.fadex_backend.auth.usuario.Repository.UsuarioRepository;
 import com.sistemabarberia.fadex_backend.auth.usuario.dto.request.*;
+import com.sistemabarberia.fadex_backend.auth.usuario.dto.response.PermisoResponse;
+import com.sistemabarberia.fadex_backend.auth.usuario.dto.response.RolResponse;
 import com.sistemabarberia.fadex_backend.auth.usuario.dto.response.UsuarioResponse;
+import com.sistemabarberia.fadex_backend.auth.usuario.dto.response.UsuarioTablaResponse;
 import com.sistemabarberia.fadex_backend.auth.usuario.service.IUsuarioService;
 import com.sistemabarberia.fadex_backend.commons.exception.ResourceNotFoundException;
+import com.sistemabarberia.fadex_backend.commons.response.PageResponse;
 import com.sistemabarberia.fadex_backend.modules.barbero.entity.Barbero;
 import com.sistemabarberia.fadex_backend.modules.barbero.repository.BarberoRepository;
 import com.sistemabarberia.fadex_backend.modules.cliente.entity.Cliente;
 import com.sistemabarberia.fadex_backend.modules.cliente.repository.ClienteRepository;
 import com.sistemabarberia.fadex_backend.modules.persona.entity.Persona;
 import com.sistemabarberia.fadex_backend.modules.persona.repository.PersonaRepository;
+import com.sistemabarberia.fadex_backend.modules.recompensa.entity.Recompensa;
+import com.sistemabarberia.fadex_backend.modules.recompensa.repository.RecompensaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.sistemabarberia.fadex_backend.commons.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 
+import java.io.ByteArrayOutputStream;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,6 +100,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         Barbero barbero = Barbero.builder()
                 .persona(persona)
+                .activo(true)
                 .experiencia(req.getExperiencia())
                 .sueldo(req.getSueldo())
                 .comision(req.getComision())
@@ -96,6 +113,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return toResponse(usuario, persona);
     }
 
+    @Autowired
+    private RecompensaRepository recompensaRepository;
+
     @Override
     @Transactional
     public UsuarioResponse crearCliente(CreateClienteRequest req) {
@@ -104,9 +124,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         Cliente cliente = Cliente.builder()
                 .persona(persona)
+                .activo(true)        // ← también faltaba esto
                 .build();
 
-        clienteRepository.save(cliente);
+        Cliente guardado = clienteRepository.save(cliente);
+
+        // Crear tarjeta de recompensas automáticamente
+        Recompensa recompensa = Recompensa.builder()
+                .cliente(guardado)
+                .cortesAcumulados(0)
+                .cortesGratis(0)
+                .fechaActualizacion(LocalDateTime.now())
+                .build();
+        recompensaRepository.save(recompensa);
+
         return toResponse(usuario, persona);
     }
 
@@ -208,4 +239,295 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 .rol(rolNombre)
                 .build();
     }
+
+    @Override
+    public Page<UsuarioTablaResponse> listarUsuariosTabla(Pageable pageable) {
+
+        Page<Object[]> page = usuarioRepository.listarUsuariosTabla(pageable);
+
+        List<UsuarioTablaResponse> content = page.getContent()
+                .stream()
+                .collect(Collectors.groupingBy(
+                        row -> ((Usuario) row[0]).getIdUsuario()
+                ))
+                .values()
+                .stream()
+                .map(rows -> {
+
+                    Usuario usuario = (Usuario) rows.get(0)[0];
+                    Persona persona = (Persona) rows.get(0)[1];
+
+                    List<String> roles = rows.stream()
+                            .map(r -> ((Rol) r[2]).getNombre())
+                            .distinct()
+                            .toList();
+
+                    return UsuarioTablaResponse.builder()
+                            .idUsuario(usuario.getIdUsuario())
+                            .usuario(usuario.getUser())
+
+                            .nombre(
+                                    persona != null
+                                            ? persona.getNombre()
+                                            : null
+                            )
+
+                            .apellido(
+                                    persona != null
+                                            ? persona.getApellido()
+                                            : null
+                            )
+
+                            .tieneQr(
+                                    usuario.getQrToken() != null
+                                            && !usuario.getQrToken().isBlank()
+                            )
+
+                            .roles(roles)
+                            .build();
+                })
+                .toList();
+
+        return new PageImpl<>(
+                content,
+                pageable,
+                page.getTotalElements()
+        );
+    }
+
+    @Override
+    public Page<UsuarioTablaResponse> filtrarUsuarios(
+            String rol,
+            Boolean tieneQr,
+            Boolean multiplesRoles,
+            Pageable pageable
+    ) {
+
+        return usuarioRepository.filtrarUsuarios(
+                        rol,
+                        tieneQr,
+                        multiplesRoles,
+                        pageable
+                )
+                .map(usuario -> {
+
+                    Persona persona = personaRepository.findByUsuario(usuario)
+                            .orElse(null);
+
+                    return UsuarioTablaResponse.builder()
+
+                            .idUsuario(usuario.getIdUsuario())
+
+                            .usuario(usuario.getUser())
+
+                            .nombre(
+                                    persona != null
+                                            ? persona.getNombre()
+                                            : null
+                            )
+
+                            .apellido(
+                                    persona != null
+                                            ? persona.getApellido()
+                                            : null
+                            )
+
+                            .tieneQr(
+                                    usuario.getQrToken() != null
+                                            && !usuario.getQrToken().isBlank()
+                            )
+
+                            .roles(
+                                    usuario.getRoles()
+                                            .stream()
+                                            .map(Rol::getNombre)
+                                            .toList()
+                            )
+
+                            .build();
+                });
+    }
+
+
+    @Override
+    public Page<UsuarioTablaResponse> buscarUsuarios(
+            String texto,
+            Pageable pageable
+    ) {
+
+        return usuarioRepository.buscarUsuarios(texto, pageable)
+                .map(usuario -> {
+
+                    Persona persona = personaRepository.findByUsuario(usuario)
+                            .orElse(null);
+
+                    return UsuarioTablaResponse.builder()
+
+                            .idUsuario(usuario.getIdUsuario())
+
+                            .usuario(usuario.getUser())
+
+                            .nombre(
+                                    persona != null
+                                            ? persona.getNombre()
+                                            : null
+                            )
+
+                            .apellido(
+                                    persona != null
+                                            ? persona.getApellido()
+                                            : null
+                            )
+
+                            .tieneQr(
+                                    usuario.getQrToken() != null
+                                            && !usuario.getQrToken().isBlank()
+                            )
+
+                            .roles(
+                                    usuario.getRoles()
+                                            .stream()
+                                            .map(Rol::getNombre)
+                                            .toList()
+                            )
+
+                            .build();
+                });
+    }
+
+    @Override
+    public byte[] generarQr(Integer idUsuario) {
+
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Usuario no encontrado")
+                );
+
+        try {
+
+            String contenido = usuario.getQrToken();
+
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+
+            BitMatrix bitMatrix = qrCodeWriter.encode(
+                    contenido,
+                    BarcodeFormat.QR_CODE,
+                    300,
+                    300
+            );
+
+            ByteArrayOutputStream outputStream =
+                    new ByteArrayOutputStream();
+
+            MatrixToImageWriter.writeToStream(
+                    bitMatrix,
+                    "PNG",
+                    outputStream
+            );
+
+            return outputStream.toByteArray();
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    "Error al generar QR"
+            );
+        }
+    }
+
+    @Override
+    @Transactional
+    public void asignarRoles(
+            Integer idUsuario,
+            AssignRolesRequest request
+    ) {
+
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Usuario no encontrado"
+                        )
+                );
+
+        Set<Rol> nuevosRoles = request.getRoles()
+                .stream()
+                .map(idRol -> rolRepository.findById(idRol)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Rol no encontrado: " + idRol
+                                )
+                        )
+                )
+                .collect(Collectors.toSet());
+
+        usuario.getRoles().addAll(nuevosRoles);
+
+        usuarioRepository.save(usuario);
+    }
+
+
+    @Override
+    public List<RolResponse> listarRoles() {
+
+        return rolRepository.findAll()
+                .stream()
+                .map(rol -> RolResponse.builder()
+                        .idRol(rol.getIdRol())
+                        .nombre(rol.getNombre())
+                        .build()
+                )
+                .toList();
+    }
+
+    @Override
+    public List<RolResponse> obtenerRolesUsuario(Integer idUsuario) {
+
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Usuario no encontrado"
+                        )
+                );
+
+        return usuario.getRoles()
+                .stream()
+                .map(rol -> RolResponse.builder()
+                        .idRol(rol.getIdRol())
+                        .nombre(rol.getNombre())
+                        .build()
+                )
+                .toList();
+    }
+
+    @Override
+    public Page<PermisoResponse> obtenerPermisosUsuario(Integer idUsuario, Pageable pageable) {
+
+        // Verifica que el usuario existe
+        usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + idUsuario));
+
+        return usuarioRepository.findPermisosByUsuarioId(idUsuario, pageable)
+                .map(permiso -> PermisoResponse.builder()
+                        .idPermiso(permiso.getIdPermiso())
+                        .nombre(permiso.getNombre())
+                        .descripcion(permiso.getDescripcion())
+                        .build());
+    }
+
+    @Override
+    @Transactional
+    public void quitarRol(Integer idUsuario, Integer idRol) {
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        Rol rol = rolRepository.findById(idRol)
+                .orElseThrow(() -> new ResourceNotFoundException("Rol no encontrado"));
+
+        usuario.getRoles().remove(rol);
+        usuarioRepository.save(usuario);
+    }
+
+
+
+
 }

@@ -1,8 +1,8 @@
 package com.sistemabarberia.fadex_backend.modules.reserva.service;
 
-import com.sistemabarberia.fadex_backend.modules.reserva.dto.reponse.ReservaDTO;
-import com.sistemabarberia.fadex_backend.modules.reserva.dto.reponse.ResumenDiarioDTO;
-import com.sistemabarberia.fadex_backend.modules.reserva.dto.reponse.ResumenSemanalDTO;
+import com.sistemabarberia.fadex_backend.modules.reserva.dto.Response.ReservaDTO;
+import com.sistemabarberia.fadex_backend.modules.reserva.dto.Response.ResumenDiarioDTO;
+import com.sistemabarberia.fadex_backend.modules.reserva.dto.Response.ResumenSemanalDTO;
 
 public interface IGestionAtencionService {
     ResumenDiarioDTO obtenerResumenDiario(Integer barberoId);

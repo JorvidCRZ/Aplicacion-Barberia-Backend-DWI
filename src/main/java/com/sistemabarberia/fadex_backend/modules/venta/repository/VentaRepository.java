@@ -12,9 +12,9 @@ import java.util.List;
 @Repository
 public interface VentaRepository extends JpaRepository<Venta, Integer> {
 
-    List<Venta> findByCliente_ClienteId(Integer clienteId);
+    List<Venta> findByCliente_Persona_NombreContainingIgnoreCase(String nombre);
 
-    List<Venta> findByBarbero_BarberoId(Integer barberoId);
+    List<Venta> findByCliente_ClienteId(Integer clienteId);
 
     List<Venta> findByFechaBetween(LocalDateTime inicio, LocalDateTime fin);
 
@@ -24,11 +24,7 @@ public interface VentaRepository extends JpaRepository<Venta, Integer> {
             LocalDateTime fin
     );
 
-    List<Venta> findByBarbero_BarberoIdAndFechaBetween(
-            Integer barberoId,
-            LocalDateTime inicio,
-            LocalDateTime fin
-    );
+
 
     @Query(value = """
     SELECT COUNT(*)

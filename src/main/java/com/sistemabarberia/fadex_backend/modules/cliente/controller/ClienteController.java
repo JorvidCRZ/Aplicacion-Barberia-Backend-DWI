@@ -1,5 +1,6 @@
 package com.sistemabarberia.fadex_backend.modules.cliente.controller;
 
+import com.sistemabarberia.fadex_backend.auth.security.service.CustomUserDetails;
 import com.sistemabarberia.fadex_backend.commons.response.ApiResponse;
 import com.sistemabarberia.fadex_backend.commons.response.PageResponse;
 import com.sistemabarberia.fadex_backend.modules.cliente.dto.request.ClienteRequestDTO;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -40,6 +42,46 @@ public class ClienteController {
         Pageable pageable = PageRequest.of(page, size);
         Page<ClienteResponseDTO> result = clienteService.listarClientes(pageable);
         return ResponseEntity.ok(ApiResponse.ok("Clientes obtenidos correctamente", result));
+    }
+
+    @GetMapping("/inhabilitados")
+    public ResponseEntity<ApiResponse<PageResponse<ClienteResponseDTO>>> listarClientesInhabilitados(
+            @RequestParam(defaultValue = "0")  int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<ClienteResponseDTO> result =
+                clienteService.listarClientesInhabilitados(pageable);
+
+        return ResponseEntity.ok(
+                ApiResponse.ok("Clientes inhabilitados obtenidos correctamente", result)
+        );
+    }
+
+    @PatchMapping("/{id}/deshabilitar")
+    public ResponseEntity<ApiResponse<String>> deshabilitarCliente(
+            @PathVariable Integer id
+    ) {
+
+        clienteService.deshabilitarCliente(id);
+
+        return ResponseEntity.ok(
+                ApiResponse.ok("Cliente deshabilitado correctamente", "OK")
+        );
+    }
+
+    @PatchMapping("/{id}/reactivar")
+    public ResponseEntity<ApiResponse<String>> reactivarCliente(
+            @PathVariable Integer id
+    ) {
+
+        clienteService.reactivarCliente(id);
+
+        return ResponseEntity.ok(
+                ApiResponse.ok("Cliente reactivado correctamente", "OK")
+        );
     }
 
     @GetMapping("/{id}")
@@ -170,5 +212,25 @@ public class ClienteController {
                 clienteService.obtenerActividadReciente(id);
         return ResponseEntity.ok(
                 ApiResponse.ok("Actividad reciente obtenida correctamente", actividad));
+    }
+    @GetMapping("/perfil-propio")
+    public ResponseEntity<ApiResponse<ClienteResponseDTO>> obtenerPerfilPropio(
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        Integer usuarioId = userDetails.getUsuario().getIdUsuario();
+        ClienteResponseDTO cliente = clienteService.obtenerPerfilPropio(usuarioId);
+        return ResponseEntity.ok(
+                ApiResponse.ok("Perfil del cliente autenticado obtenido", cliente));
+    }
+
+    @GetMapping("/perfil-propio/resumen")
+    public ResponseEntity<ApiResponse<ClienteDetalleResumenDTO>> obtenerResumenPropio(
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        Integer usuarioId = userDetails.getUsuario().getIdUsuario();
+        System.out.println("USUARIO ID PERFIL RESUMEN: " + usuarioId);
+        ClienteDetalleResumenDTO resumen = clienteService.obtenerResumenPropio(usuarioId);
+        return ResponseEntity.ok(
+                ApiResponse.ok("Resumen del cliente autenticado obtenido", resumen));
     }
 }

@@ -18,9 +18,8 @@ import java.util.List;
 public class CitasBarberoController {
 
     private final ReservaService reservaService;
-
+    @PreAuthorize("hasAnyAuthority('ROLE_barbero', 'ROLE_admin')")
     @GetMapping("/hoy")
-    @PreAuthorize("hasAuthority('ROLE_barbero')")
     public ResponseEntity<List<CitaBarberoResponseDTO>> obtenerCitasHoy() {
         // LOG TEMPORAL
         SecurityContextHolder.getContext().getAuthentication().getAuthorities()
