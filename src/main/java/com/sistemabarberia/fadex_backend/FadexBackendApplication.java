@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 @EnableScheduling
 
-public class FadexBackendApplication {
+public class  FadexBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FadexBackendApplication.class, args);
 	}

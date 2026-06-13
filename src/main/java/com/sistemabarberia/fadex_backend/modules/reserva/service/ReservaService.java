@@ -123,19 +123,26 @@ public class ReservaService {
         }
     }
 
-    public List<ReservaDTO> ListarReservasPorCliente(Usuario usuario) {
+
+    public Page<ReservaDTO> listarReservasPorCliente(Usuario usuario, Pageable pageable) {
         System.out.println("USUARIO ID: " + usuario.getIdUsuario());
 
-        Cliente cliente = clienteRepository.findByPersona_Usuario_IdUsuario(usuario.getIdUsuario())
+        Cliente cliente = clienteRepository
+                .findByPersona_Usuario_IdUsuario(usuario.getIdUsuario())
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
 
         System.out.println("CLIENTE ID: " + cliente.getClienteId());
 
-        List<Reserva> reservas = reservaRepository.findByCliente_ClienteId(cliente.getClienteId());
 
-        System.out.println("RESERVAS ENCONTRADAS: " + reservas.size());
+        Page<Reserva> reservasPage = reservaRepository.findByCliente_ClienteId(
+                cliente.getClienteId(),
+                pageable
+        );
 
-        return reservaMapper.toDtoLista(reservas);
+
+
+
+        return reservasPage.map(reservaMapper::toDto);
     }
 
     public Page<ReservaDTO> listarReservasAdmin(Pageable pageable) {
@@ -384,6 +391,25 @@ public class ReservaService {
                 .tipoReserva(reserva.getTipoReserva())
                 .servicios(servicios)
                 .build();
+    }
+
+    public List<ReservaPendienteDTO> obtenerReservasPendientesDePago() {
+        List<Reserva> reservasSinPago = reservaRepository.findReservasSinPago();
+
+        return reservasSinPago.stream().map(r -> {
+            String nombreServicio = r.getServicio() != null ? r.getServicio().getNombre() : "Servicio general";
+
+            return ReservaPendienteDTO.builder()
+                    .id(r.getId())
+                    .clienteId(r.getCliente().getClienteId())
+                    .clienteNombre(r.getCliente().getPersona().getNombre())
+                    .clienteApellido(r.getCliente().getPersona().getApellido())
+                    .barberoId(r.getBarbero().getBarberoId())
+                    .barberoNombre(r.getBarbero().getPersona().getNombre())
+                    .montoTotal(r.getTotal())
+                    .servicios(List.of(nombreServicio))
+                    .build();
+        }).collect(Collectors.toList());
     }
 
 }

@@ -20,4 +20,6 @@ public class UsuarioTablaResponse {
     private Boolean tieneQr;
 
     private List<String> roles;
+
+    private Boolean tienePin;
 }

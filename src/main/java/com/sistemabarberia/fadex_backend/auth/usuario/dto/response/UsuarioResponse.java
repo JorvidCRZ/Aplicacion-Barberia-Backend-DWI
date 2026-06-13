@@ -17,4 +17,5 @@ public class UsuarioResponse {
     private String email;
     private String telefono;
     private String rol;
+    private Boolean tieneQr;
 }

@@ -65,4 +65,12 @@ public class  ApiResponse<T> {
                 .timestamp(LocalDateTime.now().toString())
                 .build();
     }
+    public static <T> ApiResponse<T> success(T data) {
+        return ApiResponse.<T>builder()
+                .success(true)
+                .message("OK")
+                .data(data)
+                .timestamp(LocalDateTime.now().toString())
+                .build();
+    }
 }

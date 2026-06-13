@@ -25,10 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class BarberoServiceImpl implements IBarberoService {
@@ -324,5 +321,16 @@ public class BarberoServiceImpl implements IBarberoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Barbero no encontrado"));
         barbero.setOcupado(!barbero.isOcupado());
         return mapper.toResponseDTO(barberoRepository.save(barbero));
+    }
+
+    public List<Map<String, Object>> getLista() {
+        return barberoRepository.findAll().stream()
+                .map(b -> {
+                    Map<String, Object> m = new HashMap<>();
+                    m.put("id", b.getBarberoId());
+                    m.put("nombre", b.getPersona().getNombre() + " " + b.getPersona().getApellido());
+                    return m;
+                })
+                .toList();
     }
 }

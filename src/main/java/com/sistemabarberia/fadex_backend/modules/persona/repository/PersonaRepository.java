@@ -15,4 +15,6 @@ public interface PersonaRepository extends JpaRepository<Persona,Integer > {
 
     @Query("SELECT p FROM Persona p WHERE p.usuario.idUsuario = :usuarioId")
     Optional<Persona> findByUsuarioId(@Param("usuarioId") Integer usuarioId);
+    Optional<Persona> findByEmail(String email);
+    boolean existsByEmail(String email);
 }

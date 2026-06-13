@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IServicioService {
 
@@ -47,4 +48,7 @@ public interface IServicioService {
     );
 
     void eliminar(Long id);
+
+
+    List<Map<String, Object>> getLista();
 }

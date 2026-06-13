@@ -23,7 +23,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -66,6 +68,7 @@ public class ServicioServiceImpl implements IServicioService {
     ) {
 
         filtro.setEstado(true);
+        filtro.setPublicado(true);
 
 
         Page<Servicio> pagina = servicioRepository.findAll(
@@ -378,5 +381,15 @@ public class ServicioServiceImpl implements IServicioService {
         }
 
         return nombre;
+    }
+    public List<Map<String, Object>> getLista() {
+        return servicioRepository.findAll().stream()
+                .map(s -> {
+                    Map<String, Object> m = new HashMap<>();
+                    m.put("id", s.getServicioId());
+                    m.put("nombre", s.getNombre());
+                    return m;
+                })
+                .toList();
     }
 }

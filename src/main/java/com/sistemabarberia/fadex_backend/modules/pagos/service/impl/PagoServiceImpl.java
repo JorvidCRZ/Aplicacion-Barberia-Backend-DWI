@@ -38,16 +38,12 @@ public class PagoServiceImpl implements IPagoService {
 
     private final PagoRepository pagoRepository;
     private final HistorialPagoRepository historialPagoRepository;
-
     private final ClienteRepository clienteRepository;
     private final BarberoRepository barberoRepository;
     private final ReservaRepository reservaRepository;
     private final VentaRepository ventaRepository;
-
     private final PagoMapper pagoMapper;
     private final HistorialPagoMapper historialPagoMapper;
-
-    // ── NUEVO ──
     private final IRecompensaService recompensaService;
 
     @Override
@@ -100,6 +96,7 @@ public class PagoServiceImpl implements IPagoService {
         pago.setMonto(dto.getMonto());
         pago.setMetodo(dto.getMetodo());
         pago.setTipo(dto.getTipo());
+        pago.setFecha(LocalDateTime.now());
 
         Pago pagoGuardado = pagoRepository.save(pago);
 
@@ -108,8 +105,6 @@ public class PagoServiceImpl implements IPagoService {
         historial.setCliente(cliente);
         historial.setFecha(LocalDateTime.now());
         historialPagoRepository.save(historial);
-
-        // ── NUEVO: acumular corte si es reserva normal (no gratis) ──
         if (reserva != null && reserva.getTipoReserva() != TipoReserva.RESERVA_GRATIS) {
             recompensaService.acumularCorte(cliente.getClienteId());
         }
@@ -184,10 +179,13 @@ public class PagoServiceImpl implements IPagoService {
     }
 
     @Override
+    @Transactional
     public void eliminar(Long id) {
         if (!pagoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Pago no encontrado");
         }
+        List<HistorialPago> historiales = historialPagoRepository.findByPagoId(id);
+        historialPagoRepository.deleteAll(historiales);
         pagoRepository.deleteById(id);
     }
 

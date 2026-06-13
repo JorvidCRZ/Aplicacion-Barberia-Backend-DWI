@@ -189,6 +189,29 @@ public class UsuarioController {
         return ResponseEntity.ok(qr);
     }
 
+    @PatchMapping("/{id}/pin")
+    @PreAuthorize("hasRole('admin')")
+    public ResponseEntity<ApiResponse<Void>> asignarPin(
+            @PathVariable Integer id,
+            @Valid @RequestBody AsignarPinRequest request
+    ) {
+        usuarioService.asignarPin(id, request);
+        return ResponseEntity.ok(ApiResponse.ok("PIN asignado correctamente"));
+    }
+
+    @PostMapping("/{id}/qr/regenerar")
+    @PreAuthorize("hasRole('admin')")
+    public ResponseEntity<byte[]> regenerarQr(
+            @PathVariable Integer id
+    ) {
+
+        byte[] qr = usuarioService.regenerarQr(id);
+
+        return ResponseEntity.ok(qr);
+    }
+
+
+
 
     @PatchMapping("/{id}/roles")
     @PreAuthorize("hasRole('admin')")

@@ -20,6 +20,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/barberos")
 public class BarberoController {
@@ -167,5 +170,9 @@ public class BarberoController {
             @PathVariable Integer id) {
         return ResponseEntity.ok(ApiResponse.ok("Estado actualizado",
                 barberoService.toggleOcupado(id)));
+    }
+    @GetMapping("/lista")
+    public ResponseEntity<ApiResponse<List<Map<String, Object>>>> lista() {
+        return ResponseEntity.ok(ApiResponse.success(barberoService.getLista()));
     }
 }
