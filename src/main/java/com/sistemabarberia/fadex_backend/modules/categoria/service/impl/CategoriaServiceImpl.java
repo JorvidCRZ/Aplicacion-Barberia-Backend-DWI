@@ -20,10 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -38,8 +35,13 @@ public class CategoriaServiceImpl implements ICategoriaService {
     @Transactional(readOnly = true)
     public PageResponse<CategoriaResponseDTO> listarConFiltro(CategoriaFiltro filtro, Pageable pageable) {
         Page<Categoria> page = categoriaRepository.findAll(CategoriaSpecification.conFiltros(filtro), pageable);
-        List<CategoriaResponseDTO> data = page.getContent().stream().map(this::mapearConHijos).toList();
-        data = filtrarArbol(data, filtro);
+        List<CategoriaResponseDTO> data;
+        if (filtro.getPadreId() != null) {
+            data = page.getContent().stream().map(categoriaMapper::toResponse).toList();
+        } else {
+            data = page.getContent().stream().map(this::mapearConHijos).toList();
+            data = filtrarArbol(data, filtro);
+        }
         return PageResponse.<CategoriaResponseDTO>builder()
                 .content(data)
                 .pageNumber(page.getNumber())
@@ -48,6 +50,18 @@ public class CategoriaServiceImpl implements ICategoriaService {
                 .totalPages(page.getTotalPages())
                 .last(page.isLast())
                 .build();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CategoriaResponseDTO> listarCategoriasPadre(CategoriaEnum tipo) {
+        List<Categoria> categorias;
+        if (tipo != null) {
+            categorias = categoriaRepository.findByPadreIsNullAndTipoAndEstadoTrue(tipo);
+        } else {
+            categorias = categoriaRepository.findByPadreIsNullAndEstadoTrue();
+        }
+        return categorias.stream().map(categoriaMapper::toResponse).toList();
     }
 
     @Override
@@ -238,5 +252,21 @@ public class CategoriaServiceImpl implements ICategoriaService {
         }
         dto.setSubcategorias(hijos);
         return dto;
+    }
+
+    @Override
+    public List<Long> obtenerIdsCategoriaYRamas(Long categoriaId) {
+        Set<Long> ids = new HashSet<>();
+        recolectarCategoriasHijas(categoriaId, ids);
+        return new ArrayList<>(ids);
+    }
+
+    private void recolectarCategoriasHijas(Long categoriaId, Set<Long> ids) {
+        if (ids.contains(categoriaId)) {return;}
+        ids.add(categoriaId);
+        List<Categoria> hijos = categoriaRepository.findByPadreId(categoriaId);
+        for (Categoria hijo : hijos) {
+            recolectarCategoriasHijas(hijo.getId(), ids);
+        }
     }
 }

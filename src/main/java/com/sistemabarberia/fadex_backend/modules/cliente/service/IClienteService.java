@@ -60,4 +60,7 @@ public interface IClienteService {
     ClienteResponseDTO obtenerPerfilPropio(Integer usuarioId);
 
     ClienteDetalleResumenDTO obtenerResumenPropio(Integer usuarioId);
+
+    // IClienteService.java — agrega
+    Integer obtenerIdClientePorUsuario(Integer idUsuario);
 }

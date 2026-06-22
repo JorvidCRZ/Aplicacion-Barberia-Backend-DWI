@@ -3,6 +3,7 @@ package com.sistemabarberia.fadex_backend.auth.refreshToken.service.impl;
 import com.sistemabarberia.fadex_backend.auth.refreshToken.entity.PasswordResetToken;
 import com.sistemabarberia.fadex_backend.auth.refreshToken.repository.PasswordResetTokenRepository;
 import com.sistemabarberia.fadex_backend.auth.refreshToken.service.PasswordResetService;
+import com.sistemabarberia.fadex_backend.auth.security.service.CustomUserDetails;
 import com.sistemabarberia.fadex_backend.auth.usuario.Entity.Usuario;
 import com.sistemabarberia.fadex_backend.auth.usuario.Repository.UsuarioRepository;
 import com.sistemabarberia.fadex_backend.modules.persona.entity.Persona;
@@ -172,6 +173,18 @@ public class PasswordResetServiceImpl implements PasswordResetService {
             throw new RuntimeException("Error al enviar correo", e);
         }
     }
+    @Override
+    @Transactional
+    public void changePassword(String passwordActual, String passwordNueva, CustomUserDetails userDetails) {
 
+        Usuario usuario = userDetails.getUsuario(); // directo, sin buscar en BD
+
+        if (!passwordEncoder.matches(passwordActual, usuario.getPassword())) {
+            throw new RuntimeException("La contraseña actual es incorrecta");
+        }
+
+        usuario.setPassword(passwordEncoder.encode(passwordNueva));
+        usuarioRepository.save(usuario);
+    }
 
 }

@@ -8,16 +8,16 @@ import com.sistemabarberia.fadex_backend.auth.authentication.dto.response.TokenR
 import com.sistemabarberia.fadex_backend.auth.authentication.service.AuthService;
 import com.sistemabarberia.fadex_backend.auth.refreshToken.dto.request.ForgotPasswordRequest;
 import com.sistemabarberia.fadex_backend.auth.refreshToken.dto.request.ResetPasswordRequest;
+import com.sistemabarberia.fadex_backend.auth.refreshToken.dto.request.response.ChangePasswordRequest;
 import com.sistemabarberia.fadex_backend.auth.refreshToken.service.PasswordResetService;
+import com.sistemabarberia.fadex_backend.auth.security.service.CustomUserDetails;
 import com.sistemabarberia.fadex_backend.commons.response.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -67,4 +67,16 @@ public class AuthController {
         return ResponseEntity.ok(ApiResponse.ok("Login con QR correctamente", response));
     }
 
+    @PatchMapping("/change-password")
+    public ResponseEntity<ApiResponse<Void>> changePassword(
+            @RequestBody @Valid ChangePasswordRequest request,
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
+
+        passwordResetService.changePassword(
+                request.getPasswordActual(),
+                request.getPasswordNueva(),
+                userDetails
+        );
+        return ResponseEntity.ok(ApiResponse.ok("Contraseña cambiada correctamente"));
+    }
 }

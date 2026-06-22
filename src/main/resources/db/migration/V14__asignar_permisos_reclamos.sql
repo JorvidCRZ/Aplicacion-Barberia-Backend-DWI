@@ -1,0 +1,25 @@
+
+INSERT INTO permiso (nombre) VALUES
+
+('RECLAMO_CREATE'),
+('RECLAMO_READ'),
+('RECLAMO_UPDATE_ALL'),
+('RECLAMO_DELETE_ALL')
+
+ON CONFLICT (nombre) DO NOTHING;
+
+INSERT INTO rol_permiso (id_rol, id_permiso)
+SELECT r.id_rol, p.id_permiso
+FROM rol r
+JOIN permiso p ON TRUE
+WHERE r.nombre = 'admin'
+AND p.nombre IN (
+
+'RECLAMO_CREATE',
+'RECLAMO_READ',
+'RECLAMO_UPDATE_ALL',
+'RECLAMO_DELETE_ALL'
+
+)
+ON CONFLICT DO NOTHING;
+CREATE SEQUENCE IF NOT EXISTS seq_numero_reclamo START 1;

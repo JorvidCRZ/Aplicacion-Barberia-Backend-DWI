@@ -1,6 +1,9 @@
 package com.sistemabarberia.fadex_backend.modules.cliente.controller;
 
 import com.sistemabarberia.fadex_backend.auth.security.service.CustomUserDetails;
+import com.sistemabarberia.fadex_backend.auth.usuario.Entity.Usuario;
+import com.sistemabarberia.fadex_backend.auth.usuario.Repository.UsuarioRepository;
+import com.sistemabarberia.fadex_backend.auth.usuario.service.IUsuarioService;
 import com.sistemabarberia.fadex_backend.commons.response.ApiResponse;
 import com.sistemabarberia.fadex_backend.commons.response.PageResponse;
 import com.sistemabarberia.fadex_backend.modules.cliente.dto.request.ClienteRequestDTO;
@@ -18,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -29,6 +33,9 @@ public class ClienteController {
 
     @Autowired
     private IClienteService clienteService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
 
     // ─────────────────────────────────────────────────────────────────────────
     // CRUD BÁSICO
@@ -232,5 +239,17 @@ public class ClienteController {
         ClienteDetalleResumenDTO resumen = clienteService.obtenerResumenPropio(usuarioId);
         return ResponseEntity.ok(
                 ApiResponse.ok("Resumen del cliente autenticado obtenido", resumen));
+    }
+
+    // ClienteController.java — nuevo endpoint
+    @GetMapping("/mi-cliente")
+    public ResponseEntity<ApiResponse<Integer>> obtenerMiClienteId(
+            @AuthenticationPrincipal UserDetails userDetails) {
+        System.out.println("USUARIO AUTENTICADO: " + userDetails.getUsername());
+        Integer idUsuario = usuarioRepository.findByUser(userDetails.getUsername())
+                .map(Usuario::getIdUsuario)
+                .orElseThrow();
+        return ResponseEntity.ok(ApiResponse.ok("Cliente obtenido",
+                clienteService.obtenerIdClientePorUsuario(idUsuario)));
     }
 }

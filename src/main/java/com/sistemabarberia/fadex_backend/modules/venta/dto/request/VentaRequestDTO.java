@@ -17,8 +17,7 @@ public class VentaRequestDTO {
     @NotNull(message = "Cliente obligatorio")
     private Integer clienteId;
 
-//    @NotNull(message = "Barbero obligatorio")
-//    private Integer barberoId;
+    private Integer barberoId;
 
     @NotNull(message = "Fecha obligatoria")
     private LocalDateTime fecha;

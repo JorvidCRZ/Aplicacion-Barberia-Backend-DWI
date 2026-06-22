@@ -13,9 +13,11 @@ import java.util.List;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     List<Categoria> findByEstadoTrue();
+    List<Categoria> findByPadreId(Long padreId);
+    List<Categoria> findByPadreIsNullAndEstadoTrue();
+    List<Categoria> findByPadreIsNullAndTipoAndEstadoTrue(CategoriaEnum tipo);
+    Page<Categoria> findAll(Specification<Categoria> spec, Pageable pageable);
     boolean existsByPadreId(Long padreId);
     boolean existsByNombreIgnoreCaseAndPadreIsNullAndEstadoTrue(String nombre);
     boolean existsByNombreIgnoreCaseAndPadreIdAndEstadoTrueAndTipo(String nombre, Long padreId, CategoriaEnum tipo);
-    Page<Categoria> findAll(Specification<Categoria> spec, Pageable pageable);
-    boolean existsByNombreIgnoreCase(String nombre);
 }

@@ -220,11 +220,13 @@ public class ClienteServiceImpl implements IClienteService {
     @Override
     public ClienteDetalleResumenDTO obtenerResumenCliente(Integer clienteId) {
 
-        Long totalReservas = reservaRepository.contarReservasCliente(clienteId);
-        Long totalCortes   = reservaRepository.contarCortesCliente(clienteId);
+        System.out.println(">>> clienteId para cortes: " + clienteId);
+        Long totalReservas = reservaRepository.contarReservasCliente(clienteId.longValue());
+        Long totalCortes   = reservaRepository.contarCortesCliente(clienteId.longValue());
+        System.out.println(">>> totalCortes resultado: " + totalCortes);
         Long totalCompras  = ventaRepository.contarComprasCliente(clienteId);
         Double totalGastado = ventaRepository.totalGastadoCliente(clienteId);
-        java.sql.Date ultimaVisita = reservaRepository.ultimaVisitaCliente(clienteId);
+        java.sql.Date ultimaVisita = reservaRepository.ultimaVisitaCliente(clienteId.longValue());
 
         return ClienteDetalleResumenDTO.builder()
                 .totalReservas(totalReservas)
@@ -236,7 +238,6 @@ public class ClienteServiceImpl implements IClienteService {
                         : "Sin visitas")
                 .build();
     }
-
     @Override
     public List<ActividadRecienteResponse> obtenerActividadReciente(Integer idCliente) {
 
@@ -290,5 +291,13 @@ public class ClienteServiceImpl implements IClienteService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Cliente no encontrado para el usuario autenticado"));
         return obtenerResumenCliente(cliente.getClienteId());
+    }
+
+    // ClienteServiceImpl.java — implementación
+    @Override
+    public Integer obtenerIdClientePorUsuario(Integer idUsuario) {
+        return clienteRepository.findByUsuarioId(idUsuario)
+                .map(Cliente::getClienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado para el usuario: " + idUsuario));
     }
 }

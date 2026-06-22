@@ -5,6 +5,7 @@ import com.sistemabarberia.fadex_backend.commons.response.PageResponse;
 import com.sistemabarberia.fadex_backend.modules.categoria.dto.CategoriaFiltro;
 import com.sistemabarberia.fadex_backend.modules.categoria.dto.request.CategoriaRequestDTO;
 import com.sistemabarberia.fadex_backend.modules.categoria.dto.response.CategoriaResponseDTO;
+import com.sistemabarberia.fadex_backend.modules.categoria.entity.CategoriaEnum;
 import com.sistemabarberia.fadex_backend.modules.categoria.service.ICategoriaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,12 @@ public class CategoriaController {
     public ResponseEntity<ApiResponse<CategoriaResponseDTO>> obtenerPorId(@PathVariable Long id) {
         CategoriaResponseDTO data = categoriaService.obtenerPorId(id);
         return ResponseEntity.ok(ApiResponse.ok("Categoría encontrada", data));
+    }
+
+    @GetMapping("/padres")
+    public ResponseEntity<ApiResponse<List<CategoriaResponseDTO>>> listarPadres(@RequestParam(required = false) CategoriaEnum tipo) {
+        List<CategoriaResponseDTO> data = categoriaService.listarCategoriasPadre(tipo);
+        return ResponseEntity.ok(ApiResponse.ok("Categorías padre obtenidas correctamente", data));
     }
 
     @PreAuthorize("hasAuthority('CATEGORIA_CREATE')")

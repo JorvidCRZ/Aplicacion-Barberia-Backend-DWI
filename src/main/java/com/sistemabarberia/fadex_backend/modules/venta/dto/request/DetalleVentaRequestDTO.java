@@ -12,8 +12,9 @@ import java.math.BigDecimal;
 @Builder
 public class DetalleVentaRequestDTO {
 
-    @NotNull(message = "Producto obligatorio")
     private Integer productoId;
+
+    private Integer servicioId;
 
     @NotNull(message = "Cantidad obligatoria")
     @Min(value = 1, message = "Cantidad mínima 1")

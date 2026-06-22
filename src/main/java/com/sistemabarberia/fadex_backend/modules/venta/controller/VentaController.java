@@ -25,99 +25,46 @@ public class VentaController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<VentaResponseDTO>>> listar(
-            @RequestParam(required = false) String cliente) {
+            @RequestParam(required = false) String cliente,
+            @RequestParam(required = false) String numeroCorrelativo,
+            @RequestParam(required = false) String tipoComprobante,
+            @RequestParam(required = false) String fechaInicio,
+            @RequestParam(required = false) String fechaFin
+    ) {
 
-        if (cliente != null && !cliente.isEmpty()) {
-            return ResponseEntity.ok(ApiResponse.ok("Ventas filtradas", ventaService.listar(cliente)));
-        }
-
-        return ResponseEntity.ok(ApiResponse.ok("Ventas listadas correctamente", ventaService.listar()));
+        return ResponseEntity.ok(ApiResponse.ok("Ventas listadas correctamente",
+                ventaService.buscarConFiltros(cliente, numeroCorrelativo, tipoComprobante, fechaInicio, fechaFin)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<VentaResponseDTO>> obtenerPorId(
-            @PathVariable Integer id
-    ) {
-
-        return ResponseEntity.ok(
-                ApiResponse.ok(
-                        "Venta obtenida correctamente",
-                        ventaService.obtenerPorId(id)
-                )
-        );
-
+    public ResponseEntity<ApiResponse<VentaResponseDTO>> obtenerPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(ApiResponse.ok("Venta obtenida correctamente", ventaService.obtenerPorId(id)));
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<VentaResponseDTO>> crear(
-            @Valid @RequestBody VentaRequestDTO dto
-    ) {
-
+    public ResponseEntity<ApiResponse<VentaResponseDTO>> crear(@Valid @RequestBody VentaRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(
-                        ApiResponse.ok(
-                                "Venta creada correctamente",
-                                ventaService.crear(dto)
-                        )
-                );
-
+                .body(ApiResponse.ok("Venta creada correctamente", ventaService.crear(dto)));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<VentaResponseDTO>> actualizar(
-            @PathVariable Integer id,
-            @Valid @RequestBody VentaRequestDTO dto
-    ) {
-
-        return ResponseEntity.ok(
-                ApiResponse.ok(
-                        "Venta actualizada correctamente",
-                        ventaService.actualizar(id, dto)
-                )
-        );
-
+    public ResponseEntity<ApiResponse<VentaResponseDTO>> actualizar(@PathVariable Integer id, @Valid @RequestBody VentaRequestDTO dto) {
+        return ResponseEntity.ok(ApiResponse.ok("Venta actualizada correctamente", ventaService.actualizar(id, dto)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> eliminar(
-            @PathVariable Integer id
-    ) {
-
+    public ResponseEntity<ApiResponse<Void>> eliminar(@PathVariable Integer id) {
         ventaService.eliminar(id);
-
-        return ResponseEntity.ok(
-                ApiResponse.ok(
-                        "Venta eliminada correctamente"
-                )
-        );
-
+        return ResponseEntity.ok(ApiResponse.ok("Venta eliminada correctamente"));
     }
 
     @GetMapping("/{id}/detalles")
-    public ResponseEntity<ApiResponse<List<DetalleVentaResponseDTO>>> listarDetalles(
-            @PathVariable Integer id
-    ) {
-
-        return ResponseEntity.ok(
-                ApiResponse.ok(
-                        "Detalles obtenidos correctamente",
-                        ventaService.listarDetalles(id)
-                )
-        );
-
+    public ResponseEntity<ApiResponse<List<DetalleVentaResponseDTO>>> listarDetalles(@PathVariable Integer id) {
+        return ResponseEntity.ok(ApiResponse.ok("Detalles obtenidos correctamente", ventaService.listarDetalles(id)));
     }
 
     @GetMapping("/{id}/historial")
-    public ResponseEntity<ApiResponse<List<HistorialVentaResponseDTO>>> listarHistorial(
-            @PathVariable Integer id
-    ) {
-
-        return ResponseEntity.ok(
-                ApiResponse.ok(
-                        "Historial obtenido correctamente",
-                        ventaService.listarHistorial(id)
-                )
-        );
-
+    public ResponseEntity<ApiResponse<List<HistorialVentaResponseDTO>>> listarHistorial(@PathVariable Integer id) {
+        return ResponseEntity.ok(ApiResponse.ok("Historial obtenido correctamente", ventaService.listarHistorial(id)));
     }
 }

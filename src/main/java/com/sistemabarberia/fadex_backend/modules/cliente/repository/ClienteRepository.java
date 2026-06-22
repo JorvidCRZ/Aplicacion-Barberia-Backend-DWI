@@ -157,4 +157,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
             LIMIT 10
             """, nativeQuery = true)
     List<Object[]> obtenerActividadReciente(@Param("idCliente") Integer idCliente);
+
+    // ClienteRepository.java — agrega este método
+    @Query("SELECT c FROM Cliente c WHERE c.persona.usuario.idUsuario = :idUsuario")
+    Optional<Cliente> findByUsuarioId(@Param("idUsuario") Integer idUsuario);
 }

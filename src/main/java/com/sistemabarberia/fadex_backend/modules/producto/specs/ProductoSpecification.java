@@ -9,7 +9,7 @@ import java.util.List;
 import jakarta.persistence.criteria.Predicate;
 
 public class ProductoSpecification {
-    public static Specification<Producto> filtrar(ProductoFiltro filtro) {
+    public static Specification<Producto> filtrar(ProductoFiltro filtro,List<Long> categoriasIds) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -26,8 +26,8 @@ public class ProductoSpecification {
                 predicates.add(cb.like(cb.lower(root.get("nombre")), "%" + nombre + "%"));
             }
 
-            if (filtro.getIdCategoria() != null) {
-                predicates.add(cb.equal(root.get("categoria").get("id"), filtro.getIdCategoria()));
+            if (categoriasIds != null && !categoriasIds.isEmpty()) {
+                predicates.add(root.get("categoria").get("id").in(categoriasIds));
             }
 
             if (filtro.getPrecioMin() != null) {

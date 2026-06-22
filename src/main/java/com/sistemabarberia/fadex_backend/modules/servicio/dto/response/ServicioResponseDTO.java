@@ -16,8 +16,10 @@ public class ServicioResponseDTO {
     private String nombre;
     private BigDecimal precio;
     private Long categoriaId;
+    private String descripcion;
     private String categoriaNombre;
     private Integer duracion;
+    private boolean estado;
+    private boolean publicado;
     private List<String> urlsMultimedia;
-
 }

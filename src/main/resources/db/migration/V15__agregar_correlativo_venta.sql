@@ -1,0 +1,1 @@
+ALTER TABLE venta ADD COLUMN numero_correlativo VARCHAR(20) UNIQUE;

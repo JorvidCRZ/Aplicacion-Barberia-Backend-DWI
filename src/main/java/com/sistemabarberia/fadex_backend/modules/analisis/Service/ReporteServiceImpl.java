@@ -153,7 +153,7 @@ public class ReporteServiceImpl implements ReporteService {
     }
 
 
-    // ─── PDF VENTAS ─────────────────────────────────────────────
+    // ─── PDF VENTAS
     @Override
     public byte[] generarVentasPdf(LocalDate desde, LocalDate hasta) {
         List<Reserva> reservas = reservaRepository.findReservasPorPeriodo(desde, hasta);
@@ -184,7 +184,7 @@ public class ReporteServiceImpl implements ReporteService {
 
         boolean par = false;
         for (Reserva r : reservas) {
-            if (r.getEstadoReserva().toString().equals("FINALIZADA")) {
+            if (r.getEstadoReserva() != null && "FINALIZADA".equals(r.getEstadoReserva().toString()) && r.getServicio() != null) {
                 DeviceRgb fondo = par ? grisClaro : blanco;
                 table.addCell(new Cell().add(new Paragraph(r.getFecha().toString())).setBackgroundColor(fondo).setPadding(6));
                 table.addCell(new Cell().add(new Paragraph(r.getServicio().getNombre())).setBackgroundColor(fondo).setPadding(6));
@@ -199,7 +199,7 @@ public class ReporteServiceImpl implements ReporteService {
         return out.toByteArray();
     }
 
-    // ─── EXCEL VENTAS ────────────────────────────────────────────
+    // ─── EXCEL VENTAS
     @Override
     public byte[] generarVentasExcel(LocalDate desde, LocalDate hasta) {
         List<Reserva> reservas = reservaRepository.findReservasPorPeriodo(desde, hasta);
@@ -223,7 +223,7 @@ public class ReporteServiceImpl implements ReporteService {
 
             int rowNum = 1;
             for (Reserva r : reservas) {
-                if (r.getEstadoReserva().toString().equals("FINALIZADA")) {
+                if (r.getEstadoReserva() != null && "FINALIZADA".equals(r.getEstadoReserva().toString()) && r.getServicio() != null) {
                     Row row = sheet.createRow(rowNum);
                     XSSFCellStyle estilo = (rowNum % 2 == 0) ? filaParStyle : filaImparStyle;
                     setCellStyled(row, 0, r.getFecha().toString(), estilo);
@@ -241,7 +241,7 @@ public class ReporteServiceImpl implements ReporteService {
         }
     }
 
-    // ─── PDF CLIENTES ────────────────────────────────────────────
+    // ─── PDF CLIENTES
     @Override
     public byte[] generarClientesPdf(LocalDate desde, LocalDate hasta) {
         List<Reserva> reservas = reservaRepository.findReservasPorPeriodo(desde, hasta);
@@ -270,12 +270,14 @@ public class ReporteServiceImpl implements ReporteService {
 
         boolean par = false;
         for (Reserva r : reservas) {
-            DeviceRgb fondo = par ? grisClaro : blanco;
-            table.addCell(new Cell().add(new Paragraph(r.getCliente().getPersona().getNombre())).setBackgroundColor(fondo).setPadding(6));
-            table.addCell(new Cell().add(new Paragraph(r.getFecha().toString())).setBackgroundColor(fondo).setPadding(6));
-            table.addCell(new Cell().add(new Paragraph(r.getServicio().getNombre())).setBackgroundColor(fondo).setPadding(6));
-            table.addCell(new Cell().add(new Paragraph("S/ " + r.getTotal())).setBackgroundColor(fondo).setPadding(6));
-            par = !par;
+            if (r.getCliente() != null && r.getCliente().getPersona() != null) {
+                DeviceRgb fondo = par ? grisClaro : blanco;
+                table.addCell(new Cell().add(new Paragraph(r.getCliente().getPersona().getNombre())).setBackgroundColor(fondo).setPadding(6));
+                table.addCell(new Cell().add(new Paragraph(r.getFecha().toString())).setBackgroundColor(fondo).setPadding(6));
+                table.addCell(new Cell().add(new Paragraph(r.getServicio() != null ? r.getServicio().getNombre() : "Sin servicio")).setBackgroundColor(fondo).setPadding(6));
+                table.addCell(new Cell().add(new Paragraph("S/ " + r.getTotal())).setBackgroundColor(fondo).setPadding(6));
+                par = !par;
+            }
         }
 
         doc.add(table);
@@ -283,7 +285,7 @@ public class ReporteServiceImpl implements ReporteService {
         return out.toByteArray();
     }
 
-    // ─── EXCEL CLIENTES ──────────────────────────────────────────
+    // ─── EXCEL CLIENTES
     @Override
     public byte[] generarClientesExcel(LocalDate desde, LocalDate hasta) {
         List<Reserva> reservas = reservaRepository.findReservasPorPeriodo(desde, hasta);
@@ -307,14 +309,16 @@ public class ReporteServiceImpl implements ReporteService {
 
             int rowNum = 1;
             for (Reserva r : reservas) {
-                Row row = sheet.createRow(rowNum);
-                XSSFCellStyle estilo = (rowNum % 2 == 0) ? filaParStyle : filaImparStyle;
-                setCellStyled(row, 0, r.getCliente().getPersona().getNombre(), estilo);
-                setCellStyled(row, 1, r.getFecha().toString(), estilo);
-                setCellStyled(row, 2, r.getServicio().getNombre(), estilo);
-                setCellStyled(row, 3, r.getEstadoReserva().toString(), estilo);
-                setCellStyled(row, 4, "S/ " + r.getTotal(), estilo);
-                rowNum++;
+                if (r.getCliente() != null && r.getCliente().getPersona() != null) {
+                    Row row = sheet.createRow(rowNum);
+                    XSSFCellStyle estilo = (rowNum % 2 == 0) ? filaParStyle : filaImparStyle;
+                    setCellStyled(row, 0, r.getCliente().getPersona().getNombre(), estilo);
+                    setCellStyled(row, 1, r.getFecha().toString(), estilo);
+                    setCellStyled(row, 2, r.getServicio() != null ? r.getServicio().getNombre() : "Sin servicio", estilo);
+                    setCellStyled(row, 3, r.getEstadoReserva() != null ? r.getEstadoReserva().toString() : "", estilo);
+                    setCellStyled(row, 4, "S/ " + r.getTotal(), estilo);
+                    rowNum++;
+                }
             }
 
             workbook.write(out);
@@ -324,7 +328,7 @@ public class ReporteServiceImpl implements ReporteService {
         }
     }
 
-    // ─── PDF BARBEROS ────────────────────────────────────────────
+    // ─── PDF BARBEROS
     @Override
     public byte[] generarBarberosPdf(LocalDate desde, LocalDate hasta) {
         List<Reserva> reservas = reservaRepository.findReservasPorPeriodo(desde, hasta);
@@ -353,12 +357,14 @@ public class ReporteServiceImpl implements ReporteService {
 
         boolean par = false;
         for (Reserva r : reservas) {
-            DeviceRgb fondo = par ? grisClaro : blanco;
-            table.addCell(new Cell().add(new Paragraph(r.getBarbero().getPersona().getNombre())).setBackgroundColor(fondo).setPadding(6));
-            table.addCell(new Cell().add(new Paragraph(r.getFecha().toString())).setBackgroundColor(fondo).setPadding(6));
-            table.addCell(new Cell().add(new Paragraph(r.getServicio().getNombre())).setBackgroundColor(fondo).setPadding(6));
-            table.addCell(new Cell().add(new Paragraph("S/ " + r.getTotal())).setBackgroundColor(fondo).setPadding(6));
-            par = !par;
+            if (r.getBarbero() != null && r.getBarbero().getPersona() != null) {
+                DeviceRgb fondo = par ? grisClaro : blanco;
+                table.addCell(new Cell().add(new Paragraph(r.getBarbero().getPersona().getNombre())).setBackgroundColor(fondo).setPadding(6));
+                table.addCell(new Cell().add(new Paragraph(r.getFecha().toString())).setBackgroundColor(fondo).setPadding(6));
+                table.addCell(new Cell().add(new Paragraph(r.getServicio() != null ? r.getServicio().getNombre() : "Sin servicio")).setBackgroundColor(fondo).setPadding(6));
+                table.addCell(new Cell().add(new Paragraph("S/ " + r.getTotal())).setBackgroundColor(fondo).setPadding(6));
+                par = !par;
+            }
         }
 
         doc.add(table);
@@ -366,7 +372,7 @@ public class ReporteServiceImpl implements ReporteService {
         return out.toByteArray();
     }
 
-    // ─── EXCEL BARBEROS ──────────────────────────────────────────
+    // ─── EXCEL BARBEROS
     @Override
     public byte[] generarBarberosExcel(LocalDate desde, LocalDate hasta) {
         List<Reserva> reservas = reservaRepository.findReservasPorPeriodo(desde, hasta);
@@ -390,14 +396,16 @@ public class ReporteServiceImpl implements ReporteService {
 
             int rowNum = 1;
             for (Reserva r : reservas) {
-                Row row = sheet.createRow(rowNum);
-                XSSFCellStyle estilo = (rowNum % 2 == 0) ? filaParStyle : filaImparStyle;
-                setCellStyled(row, 0, r.getBarbero().getPersona().getNombre(), estilo);
-                setCellStyled(row, 1, r.getFecha().toString(), estilo);
-                setCellStyled(row, 2, r.getServicio().getNombre(), estilo);
-                setCellStyled(row, 3, r.getEstadoReserva().toString(), estilo);
-                setCellStyled(row, 4, "S/ " + r.getTotal(), estilo);
-                rowNum++;
+                if (r.getBarbero() != null && r.getBarbero().getPersona() != null) {
+                    Row row = sheet.createRow(rowNum);
+                    XSSFCellStyle estilo = (rowNum % 2 == 0) ? filaParStyle : filaImparStyle;
+                    setCellStyled(row, 0, r.getBarbero().getPersona().getNombre(), estilo);
+                    setCellStyled(row, 1, r.getFecha().toString(), estilo);
+                    setCellStyled(row, 2, r.getServicio() != null ? r.getServicio().getNombre() : "Sin servicio", estilo);
+                    setCellStyled(row, 3, r.getEstadoReserva() != null ? r.getEstadoReserva().toString() : "", estilo);
+                    setCellStyled(row, 4, "S/ " + r.getTotal(), estilo);
+                    rowNum++;
+                }
             }
 
             workbook.write(out);

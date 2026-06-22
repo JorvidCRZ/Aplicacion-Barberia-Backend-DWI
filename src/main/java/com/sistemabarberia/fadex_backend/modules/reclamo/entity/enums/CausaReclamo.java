@@ -1,0 +1,15 @@
+package com.sistemabarberia.fadex_backend.modules.reclamo.entity.enums;
+
+public enum CausaReclamo {
+    INCIDENCIA_DEL_PERSONAL,
+    INCIDENCIA_EN_RESERVA,
+    INCIDENCIA_EN_COBRO,
+    MALA_ATENCION,
+    INCUMPLIMIENTO_DE_HORARIO,
+    INCIDENCIA_EN_SISTEMA,
+    FALTA_DE_STOCK,
+    INCIDENCIA_EN_EMPAQUE,
+    INCIDENCIA_EN_DESPACHO,
+    FALLA_DEL_PROVEEDOR,
+    OTRO
+}

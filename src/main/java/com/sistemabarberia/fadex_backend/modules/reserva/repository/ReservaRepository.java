@@ -121,36 +121,36 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     Double calcularRetencionMesAnterior();
 
 
+
     /*Resumen Cliente*/
+
+    @Query(value = """
+SELECT COUNT(*)
+FROM reservas
+WHERE id_cliente = :clienteId
+  AND estado_reserva IN ('PENDIENTE', 'CONFIRMADA', 'FINALIZADA')
+""", nativeQuery = true)
+    Long contarReservasCliente(@Param("clienteId") Long clienteId);
 
     @Query(value = """
     SELECT COUNT(*)
     FROM reservas
     WHERE id_cliente = :clienteId
+      AND estado_reserva = 'FINALIZADA'
     """, nativeQuery = true)
-    Long contarReservasCliente(
-            @Param("clienteId") Integer clienteId
-    );
-
-    @Query(value = """
-    SELECT COUNT(dr.id_detalle_reserva)
-    FROM detalle_reservas dr
-    INNER JOIN reservas r
-        ON dr.id_reservas = r.id_reservas
-    WHERE r.id_cliente = :clienteId
-    """, nativeQuery = true)
-    Long contarCortesCliente(
-            @Param("clienteId") Integer clienteId
-    );
+    Long contarCortesCliente(@Param("clienteId") Long clienteId);
 
     @Query(value = """
     SELECT MAX(fecha)
     FROM reservas
     WHERE id_cliente = :clienteId
+      AND estado_reserva = 'FINALIZADA'
+      AND fecha <= CURRENT_DATE
     """, nativeQuery = true)
-    java.sql.Date ultimaVisitaCliente(
-            @Param("clienteId") Integer clienteId
-    );
+    java.sql.Date ultimaVisitaCliente(@Param("clienteId") Long clienteId);
+
+
+
     @Query("""
         SELECT r FROM Reserva r
         JOIN FETCH r.barbero b

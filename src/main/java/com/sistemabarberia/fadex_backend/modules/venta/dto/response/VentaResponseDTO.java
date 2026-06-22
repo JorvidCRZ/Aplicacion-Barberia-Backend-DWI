@@ -14,16 +14,10 @@ import java.util.List;
 public class VentaResponseDTO {
 
     private Integer ventaId;
-
+    private String numeroCorrelativo;
     private Integer clienteId;
     private String clienteNombre;
-
-//    private Integer barberoId;
-//    private String barberoNombre;
-
     private LocalDateTime fecha;
-
     private TipoComprobante tipoComprobante;
-
     private List<DetalleVentaResponseDTO> detalles;
 }

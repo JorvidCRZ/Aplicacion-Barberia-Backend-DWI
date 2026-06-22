@@ -1,6 +1,7 @@
 package com.sistemabarberia.fadex_backend.auth.security.filter;
 
 import com.sistemabarberia.fadex_backend.auth.security.jwt.JwtService;
+import com.sistemabarberia.fadex_backend.auth.security.service.CustomUserDetailService;
 import com.sistemabarberia.fadex_backend.auth.security.service.CustomUserDetails;
 import com.sistemabarberia.fadex_backend.auth.usuario.Entity.Usuario;
 import com.sistemabarberia.fadex_backend.auth.usuario.Repository.UsuarioRepository;
@@ -37,6 +38,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UsuarioRepository usuarioRepository;
+    private final CustomUserDetailService customUserDetailService;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -51,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             String path = request.getServletPath();
 
-            if (path.startsWith("/api/v1/auth")) {
+            if (path.startsWith("/api/v1/auth") && !path.equals("/api/v1/auth/change-password")) {
                 filterChain.doFilter(request, response);
                 return;
             }

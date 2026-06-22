@@ -1,6 +1,7 @@
 package com.sistemabarberia.fadex_backend.modules.venta.entity;
 
 import com.sistemabarberia.fadex_backend.modules.producto.entity.Producto;
+import com.sistemabarberia.fadex_backend.modules.servicio.entity.Servicio;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +28,10 @@ public class DetalleVenta {
     @ManyToOne
     @JoinColumn(name = "id_producto")
     private Producto producto;
+
+    @ManyToOne
+    @JoinColumn(name = "id_servicio")
+    private Servicio servicio;
 
     @Column(name = "cantidad")
     private Integer cantidad;

@@ -22,7 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -43,14 +45,24 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public PageResponse<ProductoResponse> listarProductosPublicos(ProductoFiltro filtro, Pageable pageable) {filtro.setEstado(true);filtro.setPublicado(true);
-        Page<Producto> pagina = productoRepository.findAll(ProductoSpecification.filtrar(filtro), pageable);
+    public PageResponse<ProductoResponse> listarProductosPublicos(ProductoFiltro filtro, Pageable pageable) {
+        filtro.setEstado(true);
+        filtro.setPublicado(true);
+        List<Long> categoriasIds = null;
+        if (filtro != null && filtro.getIdCategoria() != null) {
+            categoriasIds = obtenerIdsCategorias(filtro.getIdCategoria());
+        }
+        Page<Producto> pagina = productoRepository.findAll(ProductoSpecification.filtrar(filtro, categoriasIds), pageable);
         return PageResponse.of(pagina.map(productoMapper::toResponse));
     }
 
     @Override
     public PageResponse<ProductoResponse> listarProductoFiltros(ProductoFiltro filtro, Pageable pageable) {
-        Page<Producto> pagina = productoRepository.findAll(ProductoSpecification.filtrar(filtro), pageable);
+        List<Long> categoriasIds = null;
+        if (filtro != null && filtro.getIdCategoria() != null) {
+            categoriasIds = obtenerIdsCategorias(filtro.getIdCategoria());
+        }
+        Page<Producto> pagina = productoRepository.findAll(ProductoSpecification.filtrar(filtro, categoriasIds), pageable);
         return PageResponse.of(pagina.map(productoMapper::toResponse));
     }
 
@@ -182,5 +194,20 @@ public class ProductoService implements IProductoService {
             throw new BusinessException("La categoría seleccionada no pertenece a productos", HttpStatus.BAD_REQUEST);
         }
         return categoria;
+    }
+
+    private List<Long> obtenerIdsCategorias(Long categoriaId) {
+        Set<Long> ids = new HashSet<>();
+        recolectarCategoriasHijas(categoriaId, ids);
+        return new ArrayList<>(ids);
+    }
+
+    private void recolectarCategoriasHijas(Long categoriaId, Set<Long> ids) {
+        if (ids.contains(categoriaId)) {return;}
+        ids.add(categoriaId);
+        List<Categoria> hijos = categoriaRepository.findByPadreId(categoriaId);
+        for (Categoria hijo : hijos) {
+            recolectarCategoriasHijas(hijo.getId(), ids);
+        }
     }
 }

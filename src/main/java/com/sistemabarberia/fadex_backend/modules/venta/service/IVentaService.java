@@ -9,6 +9,8 @@ public interface IVentaService {
 
     VentaResponseDTO crear(VentaRequestDTO dto);
 
+    List<VentaResponseDTO> buscarConFiltros(String cliente, String numeroCorrelativo, String tipoComprobante, String fechaInicio, String fechaFin);
+
     List<VentaResponseDTO> listar();
 
     List<VentaResponseDTO> listar(String cliente);

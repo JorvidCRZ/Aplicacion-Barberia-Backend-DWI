@@ -34,13 +34,16 @@
 
         private Integer duracion;
 
+        @Column(name = "descripcion", columnDefinition = "TEXT")
+        private String descripcion;
+
         @Column(name = "estado")
         @Builder.Default
-        private Boolean estado = true;
+        private boolean estado = true;
 
         @Column(name = "publicado")
         @Builder.Default
-        private Boolean publicado = false;
+        private boolean publicado = false;
 
         @ElementCollection
         @CollectionTable(name = "servicio_multimedia", joinColumns = @JoinColumn(name = "id_servicio"))

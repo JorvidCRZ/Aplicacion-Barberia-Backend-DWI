@@ -5,6 +5,7 @@ import com.sistemabarberia.fadex_backend.modules.cliente.entity.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,13 +23,16 @@ public class Venta {
     @Column(name = "id_venta")
     private Integer ventaId;
 
+    @Column(name = "numero_correlativo", unique = true, length = 20)
+    private String numeroCorrelativo;
+
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_barbero")
-//    private Barbero barbero;
+    @ManyToOne
+    @JoinColumn(name = "id_barbero")
+    private Barbero barbero;
 
     @Column(name = "fecha")
     private LocalDateTime fecha;
@@ -36,6 +40,7 @@ public class Venta {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_comprobante")
     private TipoComprobante tipoComprobante;
+
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVenta> detalles;

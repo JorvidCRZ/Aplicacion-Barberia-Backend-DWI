@@ -22,7 +22,7 @@ import java.util.UUID;
 public class  FileStorageService {
 
     @Value("${file.upload-dir}") private String uploadDir;
-
+    @Value("${app.upload.max-size}") private long maxSizeMb;
     /**
      * @param archivo El archivo a guardar
      * @param subCarpeta Carpeta destino (ej: "categorias", "documentos")
@@ -34,12 +34,19 @@ public class  FileStorageService {
         if (archivo == null || archivo.isEmpty()) {
             throw new BusinessException("Archivo inválido o vacío", HttpStatus.BAD_REQUEST);
         }
-        // 2. Validar formato
+        // 2. Validar tamaño
+        long maxSize = maxSizeMb * 1024 * 1024;// 5 MB
+
+        if (archivo.getSize() > maxSize) {
+            throw new BusinessException( "El archivo excede el tamaño máximo permitido de " + maxSizeMb + " MB", HttpStatus.BAD_REQUEST);
+        }
+
+        // 3. Validar formato
         String contentType = archivo.getContentType();
         if (tiposPermitidos != null && !tiposPermitidos.contains(contentType)) {
             throw new BusinessException("Formato no permitido: " + contentType, HttpStatus.BAD_REQUEST);
         }
-        // 3. Generar estructura de fecha
+        // 4. Generar estructura de fecha
         LocalDate ahora = LocalDate.now();
         String fechaPath = String.format("%d/%02d", ahora.getYear(), ahora.getMonthValue());
         try {
@@ -69,12 +76,8 @@ public class  FileStorageService {
         try {
             Path rutaCompleta = Paths.get(uploadDir).resolve(urlRelativa).toAbsolutePath();
             boolean eliminado = Files.deleteIfExists(rutaCompleta);
-
-            if (eliminado) {
-                log.info("Borrado físico exitoso: {}", rutaCompleta);
-            } else {
-                log.warn("Archivo no encontrado en: {}", rutaCompleta);
-            }
+            if (eliminado) {log.info("Borrado físico exitoso: {}", rutaCompleta);}
+            else {log.warn("Archivo no encontrado en: {}", rutaCompleta);}
         } catch (IOException e) {
             log.error("Error eliminando archivo: {}", urlRelativa, e);
             throw new BusinessException("Error al eliminar archivo", HttpStatus.INTERNAL_SERVER_ERROR);

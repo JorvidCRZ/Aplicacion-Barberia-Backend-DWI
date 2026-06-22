@@ -27,7 +27,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
              
           """
      )
-     Optional<Usuario> findByUserWithRolesYPermisos(String user);
+     Optional<Usuario> findByUserWithRolesYPermisos(
+             @Param("user") String user
+     );
 
     Optional<Usuario> findByUser(String user);
     @EntityGraph(attributePaths = "roles")
